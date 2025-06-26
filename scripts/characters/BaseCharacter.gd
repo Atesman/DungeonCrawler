@@ -23,6 +23,7 @@ var current_block: int
 var max_actions: int
 var temp_max_actions: int #refactor current_max_actions
 var current_actions: int # refactor remaining_actions
+var currently_engaged: bool
 
 
 func set_core_stats(blueprint: Dictionary) -> void:
@@ -41,6 +42,7 @@ func set_core_stats(blueprint: Dictionary) -> void:
 	max_actions = blueprint["max_actions"]
 	temp_max_actions = max_actions
 	current_actions = max_actions
+	currently_engaged = false
 
 
 func reset_actions():
@@ -66,6 +68,23 @@ func recieve_damage(damage: int) -> void:
 	emit_signal("def_changed", current_def)
 	current_hp = current_hp - damage_taken
 	emit_signal("hp_changed", current_hp)
+
+
+func engage() -> void:
+	currently_engaged = true
+
+
+func disengage() -> void:
+	currently_engaged = false
+
+
+func attack() -> int:
+	var damage: int
+	if currently_engaged:
+		damage = melee_attack()
+	else:
+		damage = ranged_attack()
+	return damage
 
 
 func melee_attack() -> int:

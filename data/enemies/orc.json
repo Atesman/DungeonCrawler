@@ -8,8 +8,7 @@
 	"max_actions": 2,
 	"sprite_path": "res://assets/sprites/orc.png",
 	"action_probabilities": {
-		"melee": 0.65,
-		"ranged": 0.25,
-		"defend": 0.10
+		"attack": 0.67,
+		"defend": 0.33
 	}
 }

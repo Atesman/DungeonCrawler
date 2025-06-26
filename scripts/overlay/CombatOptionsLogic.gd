@@ -8,12 +8,12 @@ signal action_selected(action: String)
 	#var dungeon = get_tree().root.get_node("Main/GameLayer/Dungeon") # get node and get the instanced version?
 	#combat_manager = dungeon.combat_manager
 
-func on_melee_pressed():
-	action_selected.emit("melee")
+func on_attack_pressed():
+	action_selected.emit("attack")
 
 
-func on_ranged_pressed():
-	action_selected.emit("ranged")
+func on_move_pressed():
+	action_selected.emit("move")
 
 
 func on_defend_pressed():

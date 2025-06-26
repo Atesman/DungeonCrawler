@@ -13,6 +13,11 @@ var is_targeting: bool = false
 var pending_action: String = ""
 var delay_between_enemy_actions := 1.5
 
+var close_quarter_characters := {
+    "player": null,
+    "enemy": null
+}
+
 
 func start_combat(order: Array[BaseCharacter]) -> void:
 	turn_order = order
@@ -64,15 +69,23 @@ func exit_targeting_mode():
 	pending_action = ""
 
 
-func on_enemy_clicked(target: BaseCharacter):
+func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 	if not is_targeting:
 		return
 
 	match pending_action:
-		"melee":
-			target.recieve_damage(current_character.melee_attack())
-		"ranged":
-			target.recieve_damage(current_character.ranged_attack())
+		"attack":
+			target.recieve_damage(current_character.attack())
+		"move":
+			if current_character.currently_engaged:
+				current_character.disengage()
+				close_quarter_characters["player"] = null
+				close_quarter_characters["enemy"] = null
+
+			else:
+				current_character.engage()
+				close_quarter_characters["player"] = current_character
+				close_quarter_characters["enemy"] = target
 		_:
 			print("Unknown Action: ", pending_action)
 
@@ -101,27 +114,29 @@ func enemies_reset_def():
 func process_enemy_actions(actions_queue: Array[String]):
 	for action in actions_queue:
 		match action:
-			"melee":
-				enemy_melee()
-			"ranged":
-				enemy_ranged()
+			"attack":
+				enemy_attack()
 			"defend":
 				current_character.defend()
 				current_character.use_action()
 				action_used()
+			"move":
+				if current_character.currently_engaged:
+					current_character.disengage()
+					close_quarter_characters["player"] = null
+					close_quarter_characters["enemy"] = null
+
+				else:
+					current_character.engage()
+					close_quarter_characters["player"] = GameState.get_player()
+					close_quarter_characters["enemy"] = current_character
 			_:
 				print("Unknown action: ", action)
 		await wait_seconds(delay_between_enemy_actions)
 
 
-func enemy_melee():
-	GameState.get_player().recieve_damage(current_character.melee_attack())
-	current_character.use_action()
-	action_used()
-
-
-func enemy_ranged():
-	GameState.get_player().recieve_damage(current_character.ranged_attack())
+func enemy_attack():
+	GameState.get_player().recieve_damage(current_character.attack())
 	current_character.use_action()
 	action_used()
 

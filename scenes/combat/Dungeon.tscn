@@ -31,11 +31,23 @@ script = ExtResource("3_1yj8c")
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(500, 540)
 
+[node name="PlayerEngage" type="Node2D" parent="."]
+position = Vector2(500, 540)
+
 [node name="EnemySpawn0" type="Node2D" parent="."]
 position = Vector2(1420, 540)
+
+[node name="EnemyEngage0" type="Node2D" parent="."]
+position = Vector2(1120, 540)
 
 [node name="EnemySpawn1" type="Node2D" parent="."]
 position = Vector2(1650, 860)
 
+[node name="EnemyEngage1" type="Node2D" parent="."]
+position = Vector2(1650, 860)
+
 [node name="EnemySpawn2" type="Node2D" parent="."]
+position = Vector2(1650, 220)
+
+[node name="EnemyEngage2" type="Node2D" parent="."]
 position = Vector2(1650, 220)
