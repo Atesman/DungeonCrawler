@@ -1,0 +1,7 @@
+assets/
+icon.svg
+icon.svg.import
+
+# Godot 4+ specific ignores
+.godot/
+/android/

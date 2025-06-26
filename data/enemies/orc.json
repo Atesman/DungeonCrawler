@@ -1,0 +1,15 @@
+{
+	"name": "Orc",
+	"max_hp": 25,
+	"melee_atk": 6,
+	"ranged_atk": 4,
+	"def": 2,
+	"block": 2,
+	"max_actions": 2,
+	"sprite_path": "res://assets/sprites/orc.png",
+	"action_probabilities": {
+		"melee": 0.65,
+		"ranged": 0.25,
+		"defend": 0.10
+	}
+}

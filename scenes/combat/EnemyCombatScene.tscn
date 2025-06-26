@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://brbh4u3jsxttl"]
+
+[ext_resource type="Script" path="res://scripts/combat/EnemyCombatSceneLogic.gd" id="1_5eroq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1f5g"]
+size = Vector2(300, 300)
+
+[node name="EnemyCombatScene" type="Node2D"]
+script = ExtResource("1_5eroq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource("RectangleShape2D_v1f5g")
+debug_color = Color(0.956863, 0, 0.545098, 0.215686)
+
+[connection signal="input_event" from="ClickArea" to="." method="_input_event"]

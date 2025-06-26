@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://cayicgxgvjo2u"]
+
+[ext_resource type="Script" path="res://scripts/overlay/CombatOptionsLogic.gd" id="1_k3umd"]
+
+[node name="CombatOptions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_k3umd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = 260.0
+offset_right = 160.0
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Melee" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Melee"
+
+[node name="Ranged" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ranged"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Defend" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Defend"
+
+[node name="Item" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Item"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Melee" to="." method="on_melee_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Ranged" to="." method="on_ranged_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Defend" to="." method="on_defend_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Item" to="." method="on_item_pressed"]

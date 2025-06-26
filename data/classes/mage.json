@@ -1,0 +1,10 @@
+{
+	"name": "Mage",
+	"max_hp": 10,
+	"melee_atk": 5,
+	"ranged_atk": 15,
+	"def": 5,
+	"block": 2,
+	"max_actions": 3,
+	"sprite_path": "res://assets/sprites/mage.png"
+}

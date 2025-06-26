@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://gse21r053jon"]
+
+[ext_resource type="Script" path="res://scripts/combat/Dungeon.gd" id="1_om2wp"]
+[ext_resource type="Texture2D" uid="uid://rx6hx4wkmgl1" path="res://assets/backgrounds/dungeon.png" id="2_w43r8"]
+[ext_resource type="Script" path="res://scripts/combat/CombatManager.gd" id="3_1yj8c"]
+
+[node name="Dungeon" type="Node2D"]
+script = ExtResource("1_om2wp")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_w43r8")
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource("3_1yj8c")
+
+[node name="CombatActors" type="Node2D" parent="."]
+
+[node name="PlayerActor" type="Node2D" parent="CombatActors"]
+
+[node name="EnemyActors" type="Node2D" parent="CombatActors"]
+
+[node name="PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(500, 540)
+
+[node name="EnemySpawn0" type="Node2D" parent="."]
+position = Vector2(1420, 540)
+
+[node name="EnemySpawn1" type="Node2D" parent="."]
+position = Vector2(1650, 860)
+
+[node name="EnemySpawn2" type="Node2D" parent="."]
+position = Vector2(1650, 220)

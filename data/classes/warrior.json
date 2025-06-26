@@ -1,0 +1,10 @@
+{
+	"name": "Warrior",
+	"max_hp": 30,
+	"melee_atk": 6,
+	"ranged_atk": 4,
+	"def": 3,
+	"block": 5,
+	"max_actions": 3,
+	"sprite_path": "res://assets/sprites/warrior.png"
+}
