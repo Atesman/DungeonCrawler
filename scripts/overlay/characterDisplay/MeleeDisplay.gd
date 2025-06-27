@@ -6,12 +6,14 @@ class_name MeleeDisplay
 @onready var container = $MarginContainer
 @onready var label = $MarginContainer/Label
 
-const X_OFFSET := -252
-const Y_OFFSET := 60
+var PLAYER_X_OFFSET := 115
+var X_OFFSET := -252
+var Y_OFFSET := 60
 
 
 func _ready():
-
+	if target == GameState.get_player():
+		X_OFFSET = PLAYER_X_OFFSET
 	target.melee_changed.connect(_on_melee_changed)
 	label.text = "MEL: %d" % [target.current_melee_atk]
 	position_action_values()
@@ -27,6 +29,16 @@ func position_action_values():
 	var world_position = target_anchor.global_position
 	var canvas_xform = get_viewport().get_canvas_transform()
 	var screen_position = canvas_xform * world_position
+	
+	container.position = Vector2(
+		screen_position.x - ((container.size.x * 0.5) + X_OFFSET),
+		screen_position.y + Y_OFFSET
+	)
+
+
+func update_position(target_anchor: Vector2):
+	var canvas_xform = get_viewport().get_canvas_transform()
+	var screen_position = canvas_xform * target_anchor
 	
 	container.position = Vector2(
 		screen_position.x - ((container.size.x * 0.5) + X_OFFSET),

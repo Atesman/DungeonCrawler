@@ -4,6 +4,7 @@ const Player = preload("res://scripts/characters/player/Player.gd")
 const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
 
 var options_ui: Node
+var character_overlay: Node = null
 
 var turn_order: Array[BaseCharacter]
 var current_turn_index: int = 0
@@ -13,16 +14,19 @@ var is_targeting: bool = false
 var pending_action: String = ""
 var delay_between_enemy_actions := 1.5
 
+var character_anchor_points: Dictionary = {}
 var close_quarter_characters := {
     "player": null,
     "enemy": null
 }
 
 
-func start_combat(order: Array[BaseCharacter]) -> void:
+func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
 	turn_order = order
+	character_anchor_points = anchors
 	SceneManager.add_overlay("res://scenes/overlay/CombatOptions.tscn")
 	options_ui = get_tree().root.get_node("Main/OverlayLayer/CombatOptions")
+	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay") # move to ready
 	enemies_choose_actions()
 	start_turn()
 
@@ -77,20 +81,29 @@ func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 		"attack":
 			target.recieve_damage(current_character.attack())
 		"move":
-			if current_character.currently_engaged:
-				current_character.disengage()
-				close_quarter_characters["player"] = null
-				close_quarter_characters["enemy"] = null
-
-			else:
-				current_character.engage()
-				close_quarter_characters["player"] = current_character
-				close_quarter_characters["enemy"] = target
+			player_move_logic(target)
 		_:
 			print("Unknown Action: ", pending_action)
-
 	current_character.use_action()
 	action_used()
+
+
+func player_move_logic(target: Node):
+	if current_character.currently_engaged:
+		current_character.disengage()#MOVEMENT
+		close_quarter_characters["player"] = null
+		close_quarter_characters["enemy"] = null
+
+		#How to find out what node a character is CURRENTLY AT
+
+	else:
+		current_character.engage()
+		close_quarter_characters["player"] = current_character
+		close_quarter_characters["enemy"] = target
+
+		var target_anchor_info = character_anchor_points[target]
+		var target_anchor = target_anchor_info["engage"]
+		character_overlay.move_positions(current_character, target_anchor)
 
 
 func enemies_choose_actions():
@@ -111,7 +124,7 @@ func enemies_reset_def():
 			character.reset_def()
 
 
-func process_enemy_actions(actions_queue: Array[String]):
+func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 	for action in actions_queue:
 		match action:
 			"attack":

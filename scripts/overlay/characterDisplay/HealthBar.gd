@@ -37,3 +37,13 @@ func position_target_bar():
 		screen_position.x - (target_bar.size.x * 0.5),
 		screen_position.y + Y_OFFSET
 	)
+
+
+func update_position(target_anchor: Vector2):
+	var canvas_xform = get_viewport().get_canvas_transform()
+	var screen_position = canvas_xform * target_anchor
+	
+	target_bar.position = Vector2(
+		screen_position.x - (target_bar.size.x * 0.5),
+		screen_position.y + Y_OFFSET
+	)

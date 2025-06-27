@@ -11,36 +11,53 @@ const RangedDisplayScene := preload("res://scenes/overlay/characterDisplay/Range
 const BlockDisplayScene := preload("res://scenes/overlay/characterDisplay/BlockDisplay.tscn")
 const IntentDisplayScene := preload("res://scenes/overlay/characterDisplay/IntentDisplay.tscn")
 
+var health_bar: Node
+var ap_display: Node
+var def_display: Node
+var melee_display: Node
+var ranged_display: Node
+var block_display: Node
+var intent_display: Node
+
 
 func _ready():
 	if character:
-		var health_bar = HealthBarScene.instantiate()
+		health_bar = HealthBarScene.instantiate()
 		health_bar.target = character
 		add_child(health_bar)
 
-		var ap_display = ActionPointsDisplayScene.instantiate()
+		ap_display = ActionPointsDisplayScene.instantiate()
 		ap_display.target = character
 		add_child(ap_display)
 
-		var def_display = DefenseDisplayScene.instantiate()
+		def_display = DefenseDisplayScene.instantiate()
 		def_display.target = character
 		add_child(def_display)
 
-		var melee_display = MeleeDisplayScene.instantiate()
+		melee_display = MeleeDisplayScene.instantiate()
 		melee_display.target = character
 		add_child(melee_display)
 
-		var ranged_display = RangedDisplayScene.instantiate()
+		ranged_display = RangedDisplayScene.instantiate()
 		ranged_display.target = character
 		add_child(ranged_display)
 
-		var block_display = BlockDisplayScene.instantiate()
+		block_display = BlockDisplayScene.instantiate()
 		block_display.target = character
 		add_child(block_display)
 
 		if character is Enemy:
-			var intent_display = IntentDisplayScene.instantiate()
+			intent_display = IntentDisplayScene.instantiate()
 			intent_display.target = character
 			add_child(intent_display)
 
 
+func update_positions(target_anchor: Vector2):
+	health_bar.update_position(target_anchor)
+	ap_display.update_position(target_anchor)
+	def_display.update_position(target_anchor)
+	melee_display.update_position(target_anchor)
+	ranged_display.update_position(target_anchor)
+	block_display.update_position(target_anchor)
+	if character is Enemy:
+		intent_display.update_position(target_anchor)

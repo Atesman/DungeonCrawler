@@ -16,7 +16,7 @@ func _update_sprite():
 		enemy_sprite.texture = sprite_texture
 
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		var manager = get_tree().root.get_node("Main/GameLayer/Dungeon/CombatManager")
 		manager.on_enemy_clicked(enemy_ref)
