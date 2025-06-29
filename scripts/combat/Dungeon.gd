@@ -29,9 +29,9 @@ func _ready():
 
 
 func load_player():
-	var player_combat_scene = load("res://scenes/combat/PlayerCombatScene.tscn").instantiate() # holds sprite and recognizes click events # move into overlay layer?
-	player_actor.add_child(player_combat_scene)
-	player_combat_scene.position = $PlayerSpawn.position
+	#var player_combat_scene = load("res://scenes/combat/PlayerCombatScene.tscn").instantiate() # holds sprite and recognizes click events # move into overlay layer?
+	#player_actor.add_child(player_combat_scene)
+	#player_combat_scene.position = $PlayerSpawn.position
 	actor_spawn_points[player_ref] = $PlayerSpawn
 	character_anchor_points[player_ref] = {
 		"spawn": $PlayerSpawn.position,
@@ -43,13 +43,13 @@ func load_player():
 func load_enemies():
 	var enemy_counter: int = 0
 	for enemy_character in enemies_ref:
-		var enemy_combat_scene = load("res://scenes/combat/EnemyCombatScene.tscn").instantiate()
-		enemy_combat_scene.enemy_ref = enemy_character
-		enemy_actors.add_child(enemy_combat_scene)
+		#var enemy_combat_scene = load("res://scenes/combat/EnemyCombatScene.tscn").instantiate()
+		#enemy_combat_scene.enemy_ref = enemy_character
+		#enemy_actors.add_child(enemy_combat_scene)
 
 		var spawn_path = "EnemySpawn%d" % enemy_counter
 		var spawn_node = get_node(spawn_path)
-		enemy_combat_scene.position = spawn_node.position
+		#enemy_combat_scene.position = spawn_node.position
 		actor_spawn_points[enemy_character] = spawn_node
 
 		var engage_path = "EnemyEngage%d" % enemy_counter

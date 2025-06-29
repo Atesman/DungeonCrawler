@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cplyjqfn12gq"]
+
+[ext_resource type="Script" path="res://scripts/combat/CharacterSpriteWrapperLogic.gd" id="1_tftlq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2nxd"]
+size = Vector2(300, 300)
+
+[node name="CharacterSpriteWrapper" type="Node2D"]
+script = ExtResource("1_tftlq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_x2nxd")

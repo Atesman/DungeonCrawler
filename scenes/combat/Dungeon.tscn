@@ -24,10 +24,6 @@ script = ExtResource("3_1yj8c")
 
 [node name="CombatActors" type="Node2D" parent="."]
 
-[node name="PlayerActor" type="Node2D" parent="CombatActors"]
-
-[node name="EnemyActors" type="Node2D" parent="CombatActors"]
-
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(500, 540)
 
