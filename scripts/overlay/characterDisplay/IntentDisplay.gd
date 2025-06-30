@@ -32,3 +32,13 @@ func position_action_values():
 		screen_position.x - ((container.size.x * 0.5) + X_OFFSET),
 		screen_position.y + Y_OFFSET
 	)
+
+
+func update_position(target_anchor: Vector2):
+	var canvas_xform = get_viewport().get_canvas_transform()
+	var screen_position = canvas_xform * target_anchor
+	
+	container.position = Vector2(
+		screen_position.x - ((container.size.x * 0.5) + X_OFFSET),
+		screen_position.y + Y_OFFSET
+	)

@@ -8,7 +8,7 @@ var player_starting_data: Dictionary = {}
 var current_enemies: Array[Enemy] = [null]
 
 var current_floor: int = 1
-var enemy_list: Array = [["orc", "orc"]]
+var enemy_list: Array = [["orc", "orc", "orc"]]
 
 
 func create_new_player(data: Dictionary) -> void:

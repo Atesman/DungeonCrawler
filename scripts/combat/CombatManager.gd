@@ -56,6 +56,11 @@ func _on_action_selected(action: String) -> void:
 		current_character.defend()
 		current_character.use_action()
 		action_used()
+	elif action == "move" and current_character.currently_engaged:
+		var target = close_quarter_characters["enemy"]
+		player_move_logic(target)
+		current_character.use_action()
+		action_used()
 	else:
 		enter_targeting_mode(action)
 		if turn_order.size() == 2:# Need to remove characters from turn order on death
@@ -94,10 +99,17 @@ func player_move_logic(target: Node):
 		close_quarter_characters["player"] = null
 		close_quarter_characters["enemy"] = null
 
-		#How to find out what node a character is CURRENTLY AT
+		var player_anchors = character_anchor_points[current_character]
+		var player_spawn_anchor = player_anchors["spawn"]
+		character_overlay.move_positions(current_character, player_spawn_anchor)
+
+		var enemy_anchors = character_anchor_points[target]
+		var enemy_spawn_anchor = enemy_anchors["spawn"]
+		character_overlay.move_positions(target, enemy_spawn_anchor)
+		
 
 	else:
-		current_character.engage()
+		current_character.engage() # make it so that you cant engage with someone if you are engaged already
 		close_quarter_characters["player"] = current_character
 		close_quarter_characters["enemy"] = target
 
