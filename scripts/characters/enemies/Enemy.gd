@@ -2,19 +2,18 @@ extends BaseCharacter
 
 signal intent_changed(current_intent: String)
 
+var melee_affinity: float
 var action_probabilities: Dictionary
 var actions_queue: Array[String]
-#var combat_manager: Node = null
-
 
 
 func _ready():
     var dungeon = get_tree().root.get_node("Main/GameLayer/Dungeon")
-    #combat_manager = dungeon.combat_manager
 
 
 func create_enemy(blueprint: Dictionary) -> void:
     set_core_stats(blueprint)
+    melee_affinity = blueprint["melee_affinity"]
     action_probabilities = blueprint["action_probabilities"]
 
 
@@ -45,3 +44,16 @@ func random_choice() -> String:
 
 func get_actions() -> Array[String]:
     return actions_queue
+
+
+func decide_to_move() -> String:
+    if currently_engaged:
+        if randf() < (1.0 - melee_affinity):
+            return "disengage"
+        else:
+            return "n/a"
+    else:
+        if randf() < melee_affinity:
+            return "engage"
+        else:
+            return "n/a"

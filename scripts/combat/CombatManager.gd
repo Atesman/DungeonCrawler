@@ -40,7 +40,6 @@ func start_turn():
 		current_character.reset_def()
 		take_player_input()
 	else:
-		#current_character.combat_manager = self
 		var actions_queue = current_character.get_actions()
 		process_enemy_actions(actions_queue)
 
@@ -95,7 +94,7 @@ func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 
 func player_move_logic(target: Node):
 	if current_character.currently_engaged:
-		current_character.disengage()#MOVEMENT
+		current_character.disengage()
 		close_quarter_characters["player"] = null
 		close_quarter_characters["enemy"] = null
 
