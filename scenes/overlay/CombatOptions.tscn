@@ -54,8 +54,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Item"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Attack" to="." method="on_melee_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Attack" to="." method="on_attack_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Attack" to="." method="on_melee_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Move" to="." method="on_move_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/Defend" to="." method="on_defend_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/Item" to="." method="on_item_pressed"]

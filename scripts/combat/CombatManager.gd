@@ -106,10 +106,8 @@ func player_move_logic(target: Node):
 		var enemy_anchors = character_anchor_points[target]
 		var enemy_spawn_anchor = enemy_anchors["spawn"]
 		character_overlay.move_positions(target, enemy_spawn_anchor)
-		
-
 	else:
-		current_character.engage() # make it so that you cant engage with someone if you are engaged already
+		current_character.engage()
 		close_quarter_characters["player"] = current_character
 		close_quarter_characters["enemy"] = target
 
@@ -179,19 +177,39 @@ func end_turn():
 
 
 func action_used():
-	#check for player death
-	#check for all enemies dead
+	death_check()
 	exit_targeting_mode()
 	if current_character.has_no_actions():
 		end_turn()
 
 
 func death_check():
-	pass
+	for character in turn_order:
+		if character.current_hp <= 0:	
+			if character == GameState.get_player():
+				end_combat()
+			else:
+				if close_quarter_characters["enemy"] == character:
+					close_quarter_characters["player"].disengage()
 
+					var player = GameState.get_player()					# send this to player move decisions
+					var player_anchors = character_anchor_points[player]
+					var player_spawn_anchor = player_anchors["spawn"]
+					character_overlay.move_positions(player, player_spawn_anchor)
+
+					close_quarter_characters["player"] = null
+					close_quarter_characters["enemy"] = null
+
+				character_overlay.remove_character_overlay(character)
+
+				if turn_order.size() == 2:
+					end_combat()
+				
+				turn_order.erase(character) # will this cause issues with turn order and indexing?
+				
 
 func end_combat():
-	pass
+	print("COMBAT ENDED")
 
 
 func wait_seconds(seconds: float) -> void:
