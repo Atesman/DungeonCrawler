@@ -7,6 +7,7 @@ signal def_changed(current_def: int)
 signal block_changed(current_block: int)
 signal melee_changed(current_melee_atk: int)
 signal ranged_changed(current_ranged_atk: int)
+#is my turn signal and var
 
 var sprite_path: String
 var character_name: String

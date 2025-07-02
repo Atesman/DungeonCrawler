@@ -1,11 +1,11 @@
 extends Node
 class_name Ability
 
-var owner: Node = null
+var ability_owner: Node = null
 
 
-func _init(_owner: Node) -> void:
-	owner = _owner
+func _init(character: Node) -> void:
+	ability_owner = character
 
 func on_turn_start(): pass
 func on_turn_end(): pass

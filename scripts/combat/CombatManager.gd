@@ -186,7 +186,7 @@ func death_check():
 	for character in turn_order:
 		if character.current_hp <= 0:	
 			if character == GameState.get_player():
-				end_combat()
+				end_combat("defeat")
 			else:
 				if close_quarter_characters["enemy"] == character:
 					close_quarter_characters["player"].disengage()
@@ -202,13 +202,16 @@ func death_check():
 				character_overlay.remove_character_overlay(character)
 
 				if turn_order.size() == 2:
-					end_combat()
+					end_combat("victory")
 				
 				turn_order.erase(character) # will this cause issues with turn order and indexing?
-				
 
-func end_combat():
-	print("COMBAT ENDED")
+
+func end_combat(result: String):
+	if result == "victory":
+		SceneManager.add_ui("res://scenes/ui/CombatVictory.tscn")
+	else:
+		SceneManager.add_ui("res://scenes/ui/CombatDefeat.tscn")
 
 
 func wait_seconds(seconds: float) -> void:
