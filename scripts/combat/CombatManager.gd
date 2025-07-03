@@ -12,7 +12,7 @@ var current_character: BaseCharacter
 
 var is_targeting: bool = false
 var pending_action: String = ""
-var delay_between_enemy_actions := 1.5
+var delay_between_enemy_actions := 1.2
 
 var character_anchor_points: Dictionary = {}
 var close_quarter_characters := {
@@ -83,6 +83,9 @@ func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 
 	match pending_action:
 		"attack":
+			var sprite_wrapper = character_overlay.sprite_map.get(current_character)
+			if sprite_wrapper:
+				sprite_wrapper.play_attack_animation()
 			target.recieve_damage(current_character.attack())
 		"move":
 			player_move_logic(target)
@@ -158,6 +161,9 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 
 
 func enemy_attack():
+	var sprite_wrapper = character_overlay.sprite_map.get(current_character)
+	if sprite_wrapper:
+		sprite_wrapper.play_attack_animation()
 	GameState.get_player().recieve_damage(current_character.attack())
 	current_character.use_action()
 	action_used()

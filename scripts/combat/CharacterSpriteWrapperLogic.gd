@@ -2,6 +2,8 @@ extends Node2D
 
 @export var character: Node
 
+const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
+
 @onready var sprite_node := $Sprite2D
 
 func _ready():
@@ -25,3 +27,19 @@ func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		var manager = get_tree().root.get_node("Main/GameLayer/Dungeon/CombatManager")
 		manager.on_enemy_clicked(character)
+
+
+func play_attack_animation():
+	var bounce_distance := Vector2(40, 0)
+	var direction := 1
+
+	if character is Enemy:
+		direction = -1
+
+	var offset := bounce_distance * direction
+	var forward_pos := global_position + offset
+	var original_pos := global_position
+
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", forward_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", original_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
