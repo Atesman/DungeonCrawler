@@ -86,6 +86,7 @@ func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 			var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 			if sprite_wrapper:
 				sprite_wrapper.play_attack_animation()
+			SoundManager.play_attack_sound()
 			target.recieve_damage(current_character.attack())
 		"move":
 			player_move_logic(target)
@@ -164,6 +165,7 @@ func enemy_attack():
 	var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 	if sprite_wrapper:
 		sprite_wrapper.play_attack_animation()
+	SoundManager.play_attack_sound()
 	GameState.get_player().recieve_damage(current_character.attack())
 	current_character.use_action()
 	action_used()
