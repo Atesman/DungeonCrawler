@@ -1,0 +1,10 @@
+{
+	"1": [
+		{ "enemies": ["orc"], "weight": 1.0 },
+		{ "enemies": ["rat", "rat", "rat"], "weight": 0.0 }
+	],
+	"2": [
+		{ "enemies": ["orc", "orc"], "weight": 1.0 },
+		{ "enemies": [], "weight": 0.0 }
+	]
+}

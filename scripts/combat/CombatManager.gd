@@ -208,6 +208,9 @@ func death_check():
 
 
 func end_combat(result: String):
+	GameState.current_floor = GameState.current_floor + 1
+	GameState.clear_current_enemies()
+
 	if result == "victory":
 		SceneManager.add_ui("res://scenes/ui/CombatVictory.tscn")
 	else:
