@@ -24,11 +24,30 @@ func choose_actions() -> void:
             var action = random_choice()
             actions_queue.append(action)
 
+    var intended_movement = decide_to_move()
+    if intended_movement != "":
+        actions_queue.insert(0, intended_movement)
+
+    send_intent_signal()
+
+
+func send_intent_signal():
     var current_intent := ""
-    for i in actions_queue.size():
+    var start_index := 0
+
+    var first_action = actions_queue[0]
+    if first_action == "engage" or first_action == "disengage":
+        current_intent += first_action + "(" + actions_queue[1] + ")"
+        start_index = 2  # work with only one base action?
+        if actions_queue.size() > 2:
+            current_intent += " - "
+
+
+    for i in range(start_index, actions_queue.size()):
         current_intent += actions_queue[i]
         if i < actions_queue.size() - 1:
             current_intent += " - "
+
     emit_signal("intent_changed", current_intent)
 
 
@@ -51,9 +70,9 @@ func decide_to_move() -> String:
         if randf() < (1.0 - melee_affinity):
             return "disengage"
         else:
-            return "n/a"
+            return ""
     else:
         if randf() < melee_affinity:
             return "engage"
         else:
-            return "n/a"
+            return ""

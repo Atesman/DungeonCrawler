@@ -28,7 +28,7 @@ script = ExtResource("3_1yj8c")
 position = Vector2(500, 520)
 
 [node name="PlayerEngage" type="Node2D" parent="."]
-position = Vector2(500, 520)
+position = Vector2(800, 520)
 
 [node name="EnemySpawn0" type="Node2D" parent="."]
 position = Vector2(1350, 520)

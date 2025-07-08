@@ -130,7 +130,9 @@ func player_move_logic(target: Node):
 
 		var target_anchor_info = character_anchor_points[target]
 		var target_anchor = target_anchor_info["engage"]
-		character_overlay.move_positions(current_character, target_anchor)
+		input_locked = true		
+		await character_overlay.move_positions(current_character, target_anchor)
+		input_locked = false
 
 
 func enemies_choose_actions():
@@ -160,16 +162,36 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 				current_character.defend()
 				current_character.use_action()
 				action_used()
-			"move": 								# This needs to be rewritten once enemy movement is enabled
-				if current_character.currently_engaged:
-					current_character.disengage()
-					close_quarter_characters["player"] = null
-					close_quarter_characters["enemy"] = null
+			"engage":
+				if GameState.get_player().currently_engaged:
+					continue
+				current_character.engage()
+				GameState.get_player().engage()
 
-				else:
-					current_character.engage()
-					close_quarter_characters["player"] = GameState.get_player()
-					close_quarter_characters["enemy"] = current_character
+				close_quarter_characters["player"] = GameState.get_player()
+				close_quarter_characters["enemy"] = current_character
+
+				var target_anchor_info = character_anchor_points[GameState.get_player()]
+				var target_anchor = target_anchor_info["engage"]
+				await character_overlay.move_positions(current_character, target_anchor)
+
+				current_character.use_action()
+				action_used()
+			"disengage":
+				if not GameState.get_player().currently_engaged:
+					continue
+				current_character.disengage()
+				GameState.get_player().disengage()
+
+				close_quarter_characters["player"] = null
+				close_quarter_characters["enemy"] = null
+
+				var player_anchors = character_anchor_points[GameState.get_player()]
+				var player_spawn_anchor = player_anchors["spawn"]
+				await character_overlay.move_positions(GameState.get_player(), player_spawn_anchor)
+				var enemy_anchors = character_anchor_points[current_character]
+				var enemy_spawn_anchor = enemy_anchors["spawn"]
+				await character_overlay.move_positions(current_character, enemy_spawn_anchor)
 			_:
 				print("Unknown action: ", action)
 		await wait_seconds(delay_between_enemy_actions)
