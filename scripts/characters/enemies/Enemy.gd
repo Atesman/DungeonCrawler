@@ -66,13 +66,14 @@ func get_actions() -> Array[String]:
 
 
 func decide_to_move() -> String:
+    var random_value = randf()
     if currently_engaged:
-        if randf() < (1.0 - melee_affinity):
+        if random_value < (1.0 - melee_affinity):
             return "disengage"
         else:
             return ""
     else:
-        if randf() < melee_affinity:
+        if random_value < melee_affinity:
             return "engage"
         else:
             return ""

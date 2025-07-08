@@ -57,9 +57,14 @@ func _on_action_selected(action: String) -> void:
 		return
 	if action == "defend":
 		exit_targeting_mode()
+		input_locked = true
+		var sprite_wrapper = character_overlay.sprite_map.get(current_character)
+		if sprite_wrapper:
+			await sprite_wrapper.play_defend_animation()
 		current_character.defend()
 		current_character.use_action()
 		action_used()
+		input_locked = false
 	elif action == "move" and current_character.currently_engaged:
 		var target = close_quarter_characters["enemy"]
 		player_move_logic(target)
@@ -159,6 +164,9 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 			"attack":
 				enemy_attack()
 			"defend":
+				var sprite_wrapper = character_overlay.sprite_map.get(current_character)
+				if sprite_wrapper:
+					await sprite_wrapper.play_defend_animation()
 				current_character.defend()
 				current_character.use_action()
 				action_used()

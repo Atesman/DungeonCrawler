@@ -46,7 +46,26 @@ func play_attack_animation():
 	var original_pos := global_position
 
 	var tween := create_tween()
-	tween.tween_property(self, "global_position", forward_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "global_position", original_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "global_position", forward_pos, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", original_pos, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+	await tween.finished
+
+func play_defend_animation():
+	#SoundManager.play_defend_sound()
+
+	var bounce_distance := Vector2(30, 0)
+	var direction := -1
+
+	if character is Enemy:
+		direction = 1
+
+	var offset := bounce_distance * direction
+	var backward_pos := global_position + offset
+	var original_pos := global_position
+
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", backward_pos, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", original_pos, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 	await tween.finished
