@@ -20,6 +20,8 @@ var close_quarter_characters := {
     "enemy": null
 }
 
+var input_locked: bool = false
+
 
 func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
 	turn_order = order
@@ -50,6 +52,9 @@ func take_player_input():
 
 
 func _on_action_selected(action: String) -> void:
+
+	if input_locked:
+		return
 	if action == "defend":
 		exit_targeting_mode()
 		current_character.defend()
@@ -78,15 +83,18 @@ func exit_targeting_mode():
 
 
 func on_enemy_clicked(target: BaseCharacter): #Will always be Player
+	if input_locked:
+		return
 	if not is_targeting:
 		return
+
+	input_locked = true
 
 	match pending_action:
 		"attack":
 			var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 			if sprite_wrapper:
-				sprite_wrapper.play_attack_animation()
-			SoundManager.play_attack_sound()
+				await sprite_wrapper.play_attack_animation()
 			target.recieve_damage(current_character.attack())
 		"move":
 			player_move_logic(target)
@@ -94,23 +102,27 @@ func on_enemy_clicked(target: BaseCharacter): #Will always be Player
 			print("Unknown Action: ", pending_action)
 	current_character.use_action()
 	action_used()
+	input_locked = false		# experiment on where to put this
 
 
 func player_move_logic(target: Node):
 	if current_character.currently_engaged:
 		current_character.disengage()
+		target.disengage()
+
 		close_quarter_characters["player"] = null
 		close_quarter_characters["enemy"] = null
 
 		var player_anchors = character_anchor_points[current_character]
 		var player_spawn_anchor = player_anchors["spawn"]
 		character_overlay.move_positions(current_character, player_spawn_anchor)
-
 		var enemy_anchors = character_anchor_points[target]
 		var enemy_spawn_anchor = enemy_anchors["spawn"]
 		character_overlay.move_positions(target, enemy_spawn_anchor)
 	else:
 		current_character.engage()
+		target.engage()
+
 		close_quarter_characters["player"] = current_character
 		close_quarter_characters["enemy"] = target
 
@@ -146,7 +158,7 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 				current_character.defend()
 				current_character.use_action()
 				action_used()
-			"move":
+			"move": 								# This needs to be rewritten once enemy movement is enabled
 				if current_character.currently_engaged:
 					current_character.disengage()
 					close_quarter_characters["player"] = null
@@ -162,13 +174,14 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 
 
 func enemy_attack():
+	input_locked = true
 	var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 	if sprite_wrapper:
 		sprite_wrapper.play_attack_animation()
-	SoundManager.play_attack_sound()
 	GameState.get_player().recieve_damage(current_character.attack())
 	current_character.use_action()
 	action_used()
+	input_locked = false
 
 
 func end_turn():
