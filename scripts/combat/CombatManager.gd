@@ -115,10 +115,12 @@ func player_move_logic(target: Node):
 
 		var player_anchors = character_anchor_points[current_character]
 		var player_spawn_anchor = player_anchors["spawn"]
-		character_overlay.move_positions(current_character, player_spawn_anchor)
+		input_locked = true													#quick attacks can happen while moving
+		await character_overlay.move_positions(current_character, player_spawn_anchor)
 		var enemy_anchors = character_anchor_points[target]
 		var enemy_spawn_anchor = enemy_anchors["spawn"]
-		character_overlay.move_positions(target, enemy_spawn_anchor)
+		await character_overlay.move_positions(target, enemy_spawn_anchor)
+		input_locked = false
 	else:
 		current_character.engage()
 		target.engage()

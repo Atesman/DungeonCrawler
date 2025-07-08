@@ -61,3 +61,38 @@ func update_positions(target_anchor: Vector2):
 	block_display.update_position(target_anchor)
 	if character is Enemy:
 		intent_display.update_position(target_anchor)
+
+
+func fade_all_children(root: Node, to_alpha: float, tween: Tween, duration: float = 0.15):
+	for child in root.get_children():
+		if child is CanvasItem:
+			var from_color = child.modulate
+			var to_color = from_color
+			to_color.a = to_alpha
+			tween.parallel().tween_property(child, "modulate", to_color, duration)
+		fade_all_children(child, to_alpha, tween, duration)  # Recursively apply parallel tweening
+
+
+func begin_movement_animation():
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	fade_all_children(health_bar, 0.0, tween)
+	fade_all_children(ap_display, 0.0, tween)
+	fade_all_children(def_display, 0.0, tween)
+	fade_all_children(melee_display, 0.0, tween)
+	fade_all_children(ranged_display, 0.0, tween)
+	fade_all_children(block_display, 0.0, tween)
+	if intent_display:
+		fade_all_children(intent_display, 0.0, tween)
+
+
+func end_movement_animation():
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	fade_all_children(health_bar, 1.0, tween)
+	fade_all_children(ap_display, 1.0, tween)
+	fade_all_children(def_display, 1.0, tween)
+	fade_all_children(melee_display, 1.0, tween)
+	fade_all_children(ranged_display, 1.0, tween)
+	fade_all_children(block_display, 1.0, tween)
+	if intent_display:
+		fade_all_children(intent_display, 1.0, tween)
+

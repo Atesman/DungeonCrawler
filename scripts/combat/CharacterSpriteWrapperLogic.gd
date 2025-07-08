@@ -19,8 +19,11 @@ func _initialize_sprite():
 		sprite_node.texture = sprite_texture
 
 
+
 func update_sprite_position(target_anchor: Vector2):
-	position = target_anchor
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", target_anchor, 0.50).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await tween.finished
 
 
 func _input_event(_viewport, event, _shape_idx):

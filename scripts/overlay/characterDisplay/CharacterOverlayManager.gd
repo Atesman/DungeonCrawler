@@ -5,6 +5,7 @@ const CharacterSpriteWrapperScene = preload("res://scenes/combat/CharacterSprite
 
 var sprite_map := {}
 var overlay_map:= {}
+var last_anchor_map := {}
 
 
 func add_character_overlay(character: Node) -> void:
@@ -21,6 +22,8 @@ func add_character_overlay(character: Node) -> void:
 	add_child(wrapper)
 	overlay_map[character] = wrapper
 
+	last_anchor_map[character] = spawn_position
+
 
 func remove_character_overlay(character: Node) -> void:
 	if overlay_map.has(character):
@@ -31,8 +34,18 @@ func remove_character_overlay(character: Node) -> void:
 		sprite_map.erase(character)
 
 
-func move_positions(character: Node, anchor: Vector2): # get the nide itself
+func move_positions(character: Node, anchor: Vector2):
+	if last_anchor_map.get(character) == anchor:
+		return
+	last_anchor_map[character] = anchor
+
 	if overlay_map.has(character):
+		overlay_map[character].begin_movement_animation()
+		if sprite_map.has(character):
+			await sprite_map[character].update_sprite_position(anchor)
 		overlay_map[character].update_positions(anchor)
-	if sprite_map.has(character):			#write logic
-		sprite_map[character].update_sprite_position(anchor)
+		overlay_map[character].end_movement_animation()
+
+
+		
+
