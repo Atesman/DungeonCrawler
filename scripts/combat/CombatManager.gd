@@ -58,6 +58,7 @@ func _on_action_selected(action: String) -> void:
 	if action == "defend":
 		exit_targeting_mode()
 		input_locked = true
+		character_overlay.show_action(current_character, action)
 		var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 		if sprite_wrapper:
 			await sprite_wrapper.play_defend_animation()
@@ -88,15 +89,18 @@ func exit_targeting_mode():
 
 
 func on_enemy_clicked(target: BaseCharacter): #Will always be Player
-	if input_locked:
-		return
 	if not is_targeting:
 		return
-
+	if input_locked:
+		return
 	input_locked = true
 
 	match pending_action:
 		"attack":
+			if current_character.currently_engaged:
+				character_overlay.show_action(current_character, "melee")
+			else:
+				character_overlay.show_action(current_character, "ranged")
 			var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 			if sprite_wrapper:
 				await sprite_wrapper.play_attack_animation()
@@ -162,8 +166,13 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 	for action in actions_queue:
 		match action:
 			"attack":
+				if current_character.currently_engaged:
+					character_overlay.show_action(current_character, "melee")
+				else:
+					character_overlay.show_action(current_character, "ranged")
 				enemy_attack()
 			"defend":
+				character_overlay.show_action(current_character, action)
 				var sprite_wrapper = character_overlay.sprite_map.get(current_character)
 				if sprite_wrapper:
 					await sprite_wrapper.play_defend_animation()
@@ -200,6 +209,8 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 				var enemy_anchors = character_anchor_points[current_character]
 				var enemy_spawn_anchor = enemy_anchors["spawn"]
 				await character_overlay.move_positions(current_character, enemy_spawn_anchor)
+
+				# is there no action being used ona disengagement?
 			_:
 				print("Unknown action: ", action)
 		await wait_seconds(delay_between_enemy_actions)

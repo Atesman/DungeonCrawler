@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0ehcuj18pnxe"]
+
+[ext_resource type="Script" path="res://scripts/overlay/characterDisplay/ActionDisplay.gd" id="1_2wwe3"]
+[ext_resource type="Texture2D" uid="uid://ci6dd8mspumx4" path="res://assets/ui/intent_defend.png" id="2_gavpk"]
+
+[node name="ActionDisplay" type="CanvasLayer"]
+script = ExtResource("1_2wwe3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 300.0
+offset_bottom = 300.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_gavpk")

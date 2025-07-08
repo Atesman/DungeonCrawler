@@ -47,5 +47,8 @@ func move_positions(character: Node, anchor: Vector2):
 		overlay_map[character].end_movement_animation()
 
 
-		
+func show_action(character: Node, action: String):
+	if overlay_map.has(character):
+		overlay_map[character].action_display.show_action(action)
+
 

@@ -9,7 +9,9 @@ const DefenseDisplayScene := preload("res://scenes/overlay/characterDisplay/Defe
 const MeleeDisplayScene := preload("res://scenes/overlay/characterDisplay/MeleeDisplay.tscn")
 const RangedDisplayScene := preload("res://scenes/overlay/characterDisplay/RangedDisplay.tscn")
 const BlockDisplayScene := preload("res://scenes/overlay/characterDisplay/BlockDisplay.tscn")
+const ActionDisplayScene := preload("res://scenes/overlay/characterDisplay/ActionDisplay.tscn")
 const IntentDisplayScene := preload("res://scenes/overlay/characterDisplay/IntentDisplay.tscn")
+
 
 var health_bar: Node
 var ap_display: Node
@@ -17,6 +19,7 @@ var def_display: Node
 var melee_display: Node
 var ranged_display: Node
 var block_display: Node
+var action_display: Node
 var intent_display: Node
 
 
@@ -46,6 +49,10 @@ func _ready():
 		block_display.target = character
 		add_child(block_display)
 
+		action_display = ActionDisplayScene.instantiate()
+		action_display.target = character
+		add_child(action_display)
+
 		if character is Enemy:
 			intent_display = IntentDisplayScene.instantiate()
 			intent_display.target = character
@@ -59,6 +66,7 @@ func update_positions(target_anchor: Vector2):
 	melee_display.update_position(target_anchor)
 	ranged_display.update_position(target_anchor)
 	block_display.update_position(target_anchor)
+	action_display.update_position(target_anchor)
 	if character is Enemy:
 		intent_display.update_position(target_anchor)
 
@@ -95,4 +103,5 @@ func end_movement_animation():
 	fade_all_children(block_display, 1.0, tween)
 	if intent_display:
 		fade_all_children(intent_display, 1.0, tween)
+
 
