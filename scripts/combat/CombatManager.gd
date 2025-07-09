@@ -37,11 +37,13 @@ func start_turn():
 	current_character = turn_order[current_turn_index]
 	
 	if current_character is Player:
+		input_locked = false
 		enemies_choose_actions()
 		current_character.reset_actions()
 		current_character.reset_def()
 		take_player_input()
 	else:
+		input_locked = true
 		var actions_queue = current_character.get_actions()
 		process_enemy_actions(actions_queue)
 
@@ -162,8 +164,16 @@ func enemies_reset_def():
 			character.reset_def()
 
 
-func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
+func process_enemy_actions(actions_queue: Array[String]):
+
+	var skip_next = false
+
 	for action in actions_queue:
+
+		if skip_next:
+			skip_next = false
+			continue
+
 		match action:
 			"attack":
 				if current_character.currently_engaged:
@@ -192,6 +202,8 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 				var target_anchor = target_anchor_info["engage"]
 				await character_overlay.move_positions(current_character, target_anchor)
 
+				skip_next = true
+
 				current_character.use_action()
 				action_used()
 			"disengage":
@@ -210,7 +222,10 @@ func process_enemy_actions(actions_queue: Array[String]): #MOVEMENT
 				var enemy_spawn_anchor = enemy_anchors["spawn"]
 				await character_overlay.move_positions(current_character, enemy_spawn_anchor)
 
-				# is there no action being used ona disengagement?
+				skip_next = true
+
+				current_character.use_action()
+				action_used()
 			_:
 				print("Unknown action: ", action)
 		await wait_seconds(delay_between_enemy_actions)
