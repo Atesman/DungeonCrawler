@@ -6,7 +6,7 @@
 	"def": 2,
 	"block": 2,
 	"max_actions": 2,
-	"melee_affinity": 0.75,
+	"melee_affinity": 0.80,
 	"sprite_path": "res://assets/sprites/orc.png",
 	"action_probabilities": {
 		"attack": 0.67,

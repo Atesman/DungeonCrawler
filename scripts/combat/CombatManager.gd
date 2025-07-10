@@ -3,40 +3,45 @@ extends Node
 const Player = preload("res://scripts/characters/player/Player.gd")
 const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
 
+const CombatTurnManager = preload("res://scripts/combat/CombatTurnManager.gd")
+const CombatActionProcessor = preload("res://scripts/combat/CombatActionProcessor.gd")
+
 var options_ui: Node
-var character_overlay: Node = null
+var character_overlay: Node = null # need to be here?
 
-var turn_order: Array[BaseCharacter]
-var current_turn_index: int = 0
+var turn_manager: CombatTurnManager
+var action_processor: CombatActionProcessor
+
 var current_character: BaseCharacter
-
+var combat_ended: bool = false
+var input_locked: bool = false
 var is_targeting: bool = false
 var pending_action: String = ""
 var delay_between_enemy_actions := 1.2
 
-var character_anchor_points: Dictionary = {}
-var close_quarter_characters := {
-    "player": null,
-    "enemy": null
-}
-
-var input_locked: bool = false
-
 
 func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
-	turn_order = order
-	character_anchor_points = anchors
 	SceneManager.add_overlay("res://scenes/overlay/CombatOptions.tscn")
 	options_ui = get_tree().root.get_node("Main/OverlayLayer/CombatOptions")
-	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay") # move to ready
-	enemies_choose_actions()
+	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay")
+	instantiate_combat_helpers(order, character_overlay, anchors)
 	start_turn()
 
 
+func instantiate_combat_helpers(order: Array[BaseCharacter], overlay: Node, anchors: Dictionary):
+	turn_manager = CombatTurnManager.new()
+	turn_manager.set_turn_order(order)
+	add_child(turn_manager)
+
+	action_processor = CombatActionProcessor.new()
+	action_processor.setup(overlay, anchors, turn_manager)
+	add_child(action_processor)
+
+
 func start_turn():
-	current_character = turn_order[current_turn_index]
-	
+	current_character = turn_manager.get_current_character()
 	if current_character is Player:
+		await wait_seconds(0.01)
 		input_locked = false
 		enemies_choose_actions()
 		current_character.reset_actions()
@@ -54,29 +59,24 @@ func take_player_input():
 
 
 func _on_action_selected(action: String) -> void:
-
 	if input_locked:
 		return
 	if action == "defend":
-		exit_targeting_mode()
 		input_locked = true
-		character_overlay.show_action(current_character, action)
-		var sprite_wrapper = character_overlay.sprite_map.get(current_character)
-		if sprite_wrapper:
-			await sprite_wrapper.play_defend_animation()
-		current_character.defend()
-		current_character.use_action()
-		action_used()
+		exit_targeting_mode()
+		await action_processor.process_player_action(action, null)
 		input_locked = false
+		action_used()
 	elif action == "move" and current_character.currently_engaged:
-		var target = close_quarter_characters["enemy"]
-		player_move_logic(target)
-		current_character.use_action()
+		input_locked = true
+		var target = action_processor.get_close_enemy()
+		await action_processor.process_player_action(action, target)
+		input_locked = false
 		action_used()
 	else:
 		enter_targeting_mode(action)
-		if turn_order.size() == 2:# Need to remove characters from turn order on death
-			var target = turn_order[(current_turn_index + 1) % turn_order.size()]
+		if turn_manager.get_turn_order().size() == 2:
+			var target = turn_manager.next_in_line()
 			on_enemy_clicked(target)
 
 
@@ -91,155 +91,77 @@ func exit_targeting_mode():
 
 
 func on_enemy_clicked(target: BaseCharacter): #Will always be Player
-	if not is_targeting:
-		return
-	if input_locked:
+	if not is_targeting or input_locked:
 		return
 	input_locked = true
-
-	match pending_action:
-		"attack":
-			if current_character.currently_engaged:
-				character_overlay.show_action(current_character, "melee")
-			else:
-				character_overlay.show_action(current_character, "ranged")
-			var sprite_wrapper = character_overlay.sprite_map.get(current_character)
-			if sprite_wrapper:
-				await sprite_wrapper.play_attack_animation()
-			target.recieve_damage(current_character.attack())
-		"move":
-			player_move_logic(target)
-		_:
-			print("Unknown Action: ", pending_action)
-	current_character.use_action()
+	await action_processor.process_player_action(pending_action, target)
+	input_locked = false
 	action_used()
-	input_locked = false		# experiment on where to put this
 
 
 func player_move_logic(target: Node):
-	if current_character.currently_engaged:
-		current_character.disengage()
-		target.disengage()
+	#if current_character.currently_engaged:
+	#	current_character.disengage()
+	#	target.disengage()
 
-		close_quarter_characters["player"] = null
-		close_quarter_characters["enemy"] = null
+	#	close_quarter_characters["player"] = null
+	#	close_quarter_characters["enemy"] = null
 
-		var player_anchors = character_anchor_points[current_character]
-		var player_spawn_anchor = player_anchors["spawn"]
+	#	var player_anchors = character_anchor_points[current_character]
+	#	var player_spawn_anchor = player_anchors["spawn"]
 		input_locked = true													#quick attacks can happen while moving
-		await character_overlay.move_positions(current_character, player_spawn_anchor)
-		var enemy_anchors = character_anchor_points[target]
-		var enemy_spawn_anchor = enemy_anchors["spawn"]
-		await character_overlay.move_positions(target, enemy_spawn_anchor)
+	#	await character_overlay.move_positions(current_character, player_spawn_anchor)
+	#	var enemy_anchors = character_anchor_points[target]
+	#	var enemy_spawn_anchor = enemy_anchors["spawn"]
+	#	await character_overlay.move_positions(target, enemy_spawn_anchor)
 		input_locked = false
-	else:
-		current_character.engage()
-		target.engage()
+	#else:
+	#	current_character.engage()
+	#	target.engage()
 
-		close_quarter_characters["player"] = current_character
-		close_quarter_characters["enemy"] = target
+	#	close_quarter_characters["player"] = current_character
+	#	close_quarter_characters["enemy"] = target
 
-		var target_anchor_info = character_anchor_points[target]
-		var target_anchor = target_anchor_info["engage"]
+	#	var target_anchor_info = character_anchor_points[target]
+	#	var target_anchor = target_anchor_info["engage"]
 		input_locked = true		
-		await character_overlay.move_positions(current_character, target_anchor)
+	#	await character_overlay.move_positions(current_character, target_anchor)
 		input_locked = false
 
 
 func enemies_choose_actions():
-	for character in turn_order:
+	for character in turn_manager.get_turn_order():
 		if character is Enemy:
 			character.choose_actions()
 
 
 func enemies_reset_action_points():
-	for character in turn_order:
+	for character in turn_manager.get_turn_order():
 		if character is Enemy:
 			character.reset_actions()
 
 
 func enemies_reset_def():
-	for character in turn_order:
+	for character in turn_manager.get_turn_order():
 		if character is Enemy:
 			character.reset_def()
 
 
 func process_enemy_actions(actions_queue: Array[String]):
-
 	var skip_next = false
-
 	for action in actions_queue:
-
+		if combat_ended:
+			return
 		if skip_next:
 			skip_next = false
 			continue
-
-		match action:
-			"attack":
-				if current_character.currently_engaged:
-					character_overlay.show_action(current_character, "melee")
-				else:
-					character_overlay.show_action(current_character, "ranged")
-				enemy_attack()
-			"defend":
-				character_overlay.show_action(current_character, action)
-				var sprite_wrapper = character_overlay.sprite_map.get(current_character)
-				if sprite_wrapper:
-					await sprite_wrapper.play_defend_animation()
-				current_character.defend()
-				current_character.use_action()
-				action_used()
-			"engage":
-				if GameState.get_player().currently_engaged:
-					continue
-				current_character.engage()
-				GameState.get_player().engage()
-
-				close_quarter_characters["player"] = GameState.get_player()
-				close_quarter_characters["enemy"] = current_character
-
-				var target_anchor_info = character_anchor_points[GameState.get_player()]
-				var target_anchor = target_anchor_info["engage"]
-				await character_overlay.move_positions(current_character, target_anchor)
-
-				skip_next = true
-
-				current_character.use_action()
-				action_used()
-			"disengage":
-				if not GameState.get_player().currently_engaged:
-					continue
-				current_character.disengage()
-				GameState.get_player().disengage()
-
-				close_quarter_characters["player"] = null
-				close_quarter_characters["enemy"] = null
-
-				var player_anchors = character_anchor_points[GameState.get_player()]
-				var player_spawn_anchor = player_anchors["spawn"]
-				await character_overlay.move_positions(GameState.get_player(), player_spawn_anchor)
-				var enemy_anchors = character_anchor_points[current_character]
-				var enemy_spawn_anchor = enemy_anchors["spawn"]
-				await character_overlay.move_positions(current_character, enemy_spawn_anchor)
-
-				skip_next = true
-
-				current_character.use_action()
-				action_used()
-			_:
-				print("Unknown action: ", action)
+		if action == "engage" and not GameState.get_player().currently_engaged:
+			skip_next = true
+		if action == "disengage" and GameState.get_player().currently_engaged:
+			skip_next = true	
+		await action_processor.process_enemy_action(current_character, action)
+		action_used()
 		await wait_seconds(delay_between_enemy_actions)
-
-
-func enemy_attack():
-	input_locked = true
-	var sprite_wrapper = character_overlay.sprite_map.get(current_character)
-	if sprite_wrapper:
-		sprite_wrapper.play_attack_animation()
-	GameState.get_player().recieve_damage(current_character.attack())
-	current_character.use_action()
-	action_used()
-	input_locked = false
 
 
 func end_turn():
@@ -250,7 +172,7 @@ func end_turn():
 		enemies_reset_def()
 	exit_targeting_mode()
 	await wait_seconds(delay_between_enemy_actions)
-	current_turn_index = (current_turn_index + 1) % turn_order.size()
+	turn_manager.next_turn()
 	start_turn()
 
 
@@ -262,37 +184,22 @@ func action_used():
 
 
 func death_check():
-	for character in turn_order:
-		if character.current_hp <= 0:	
-			if character == GameState.get_player():
-				end_combat("defeat")
-			else:
-				if close_quarter_characters["enemy"] == character:
-					close_quarter_characters["player"].disengage()
-
-					var player = GameState.get_player()					# send this to player move decisions
-					var player_anchors = character_anchor_points[player]
-					var player_spawn_anchor = player_anchors["spawn"]
-					character_overlay.move_positions(player, player_spawn_anchor)
-
-					close_quarter_characters["player"] = null
-					close_quarter_characters["enemy"] = null
-
-				character_overlay.remove_character_overlay(character)
-
-				if turn_order.size() == 2:
-					end_combat("victory")
-				
-				turn_order.erase(character) # will this cause issues with turn order and indexing?
+	for character in turn_manager.get_turn_order():
+		var outcome = action_processor.death_check(character, turn_manager.get_turn_order().size())
+		if outcome == "":
+			continue
+		else:
+			end_combat(outcome)
 
 
 func end_combat(result: String):
-	GameState.current_floor = GameState.current_floor + 1
+	combat_ended = true
 	GameState.clear_current_enemies()
-
 	if result == "victory":
+		GameState.current_floor = GameState.current_floor + 1
 		SceneManager.add_ui("res://scenes/ui/CombatVictory.tscn")
 	else:
+		GameState.current_floor = 1
 		SceneManager.add_ui("res://scenes/ui/CombatDefeat.tscn")
 
 
