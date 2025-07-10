@@ -7,6 +7,8 @@ const CombatTurnManager = preload("res://scripts/combat/CombatTurnManager.gd")
 const CombatActionProcessor = preload("res://scripts/combat/CombatActionProcessor.gd")
 const CombatUIController = preload("res://scripts/combat/CombatUIController.gd")
 
+signal input_lock_changed(locked: bool)
+
 var character_overlay: Node = null # need to be here?
 
 var turn_manager: CombatTurnManager
@@ -116,10 +118,12 @@ func exit_targeting_mode():
 
 func _lock_input(): # add signals to interact with combat options ui
 	input_locked = true
+	emit_signal("input_lock_changed", true)
 
 
 func _unlock_input(): # add signals to interact with combat options ui
 	input_locked = false
+	emit_signal("input_lock_changed", false)
 
 
 func enemies_choose_actions():
@@ -154,7 +158,7 @@ func action_used():
 
 func death_check():
 	for character in turn_manager.get_turn_order():
-		var outcome = action_processor.death_check(character, turn_manager.get_turn_order().size())
+		var outcome = action_processor.death_check(character)
 		if outcome == "":
 			continue
 		else:

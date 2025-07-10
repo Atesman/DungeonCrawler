@@ -22,3 +22,7 @@ func on_defend_pressed():
 
 func on_item_pressed():
 	pass
+
+
+func _input_is_locked(value: bool):
+	pass

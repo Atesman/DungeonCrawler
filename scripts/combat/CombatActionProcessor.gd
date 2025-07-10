@@ -56,7 +56,7 @@ func process_enemy_action(enemy: Node, action: String):
 	enemy.use_action()
 
 
-func death_check(character: Node, number_of_combatants: int) -> String:
+func death_check(character: Node) -> String:
 	if character.current_hp <= 0:	
 		if character == GameState.get_player():
 			return("defeat")
@@ -64,7 +64,7 @@ func death_check(character: Node, number_of_combatants: int) -> String:
 			if close_quarter_characters["enemy"] == character:
 				_player_disengage(character)
 			character_overlay.remove_character_overlay(character)
-			if number_of_combatants == 2:
+			if turn_manager.get_turn_order().size() == 2:
 				return("victory")
 
 			turn_manager.remove_from_turn_order(character) # will this cause issues with turn order and indexing?
