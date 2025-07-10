@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GameState="*res://globals/GameState.gd"
 SceneManager="*res://globals/SceneManager.gd"
 SoundManager="*res://globals/SoundManager.gd"
+AbilityManager="*res://globals/AbilityManager.gd"
 
 [display]
 

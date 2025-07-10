@@ -11,5 +11,6 @@
 	"action_probabilities": {
 		"attack": 0.67,
 		"defend": 0.33
-	}
+	},
+ 	"abilities": {}
 }

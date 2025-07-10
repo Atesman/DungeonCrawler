@@ -20,7 +20,7 @@ var combat_ended: bool = false
 var input_locked: bool = false
 var is_targeting: bool = false
 var pending_action: String = ""
-var delay_between_enemy_actions := 0.8
+var delay_between_enemy_actions := 0.9
 
 
 func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
