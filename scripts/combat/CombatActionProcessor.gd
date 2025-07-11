@@ -6,8 +6,8 @@ var turn_manager: Node
 var character_overlay: Node
 var character_anchor_points: Dictionary
 var close_quarter_characters := {
-    "player": null,
-    "enemy": null
+	"player": null,
+	"enemy": null
 }
 
 
@@ -66,8 +66,8 @@ func death_check(character: Node) -> String:
 			character_overlay.remove_character_overlay(character)
 			if turn_manager.get_turn_order().size() == 2:
 				return("victory")
-
-			turn_manager.remove_from_turn_order(character) # will this cause issues with turn order and indexing?
+			GameState.remove_enemy(character)
+			turn_manager.remove_from_turn_order(character) # will this cause issues with turn order and indexing? # remove from game state current enemies. 
 			return("")
 	return("")
 			

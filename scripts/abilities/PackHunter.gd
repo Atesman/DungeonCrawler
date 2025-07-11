@@ -17,7 +17,7 @@ func _connect_signals():
 
 
 func _on_turn_order_changed(turn_order: Array):
-		var bonus_damage = _caclulate_pack_bonus(turn_order)
+		var bonus_damage = _caclulate_pack_bonus()
 		var bonus_differential = bonus_damage - previous_bonus_damage
 		previous_bonus_damage = bonus_damage
 		if bonus_differential == 0:
@@ -26,10 +26,7 @@ func _on_turn_order_changed(turn_order: Array):
 			ability_owner.adjust_bonus_damage(bonus_differential)
 	
 
-func _caclulate_pack_bonus(turn_order: Array) -> int:
-	var ally_amount = -1
-	for character in turn_order:
-		if character is Enemy:
-			ally_amount = (ally_amount + 1)
+func _caclulate_pack_bonus() -> int:
+	var ally_amount = (GameState.get_current_enemies().size() - 1)
 	var bonus_damage = (ally_amount * atk_bonus)
 	return bonus_damage

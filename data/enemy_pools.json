@@ -1,7 +1,7 @@
 {
 	"1": [
-		{ "enemies": ["orc"], "weight": 0.5 },
-		{ "enemies": ["ant"], "weight": 0.3 },
+		{ "enemies": ["orc"], "weight": 0.0 },
+		{ "enemies": ["ant"], "weight": 0.0 },
 		{ "enemies": ["skeever", "skeever", "skeever"], "weight": 0.2 }
 	],
 	"2": [
