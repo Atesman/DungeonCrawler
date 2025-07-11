@@ -1,0 +1,23 @@
+extends Node
+
+
+signal combat_ready()
+
+signal turn_order_changed(turn_order)
+
+
+# Combat lifecycle
+#signal combat_started()
+#signal combat_ended()
+
+# Turn cycle
+#signal turn_started(character)
+#signal turn_ended(character)
+
+# Action events
+#signal action_used(user, ability_name, target)
+#signal attack_performed(attacker, target, damage)
+
+# Status & data changes
+#signal health_changed(character, old_hp, new_hp)
+#signal stat_modified(character, stat_name, old_value, new_value)

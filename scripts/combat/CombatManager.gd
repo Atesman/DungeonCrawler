@@ -26,6 +26,7 @@ var delay_between_enemy_actions := 0.9
 func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
 	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay")
 	_instantiate_combat_helpers(order, character_overlay, anchors)
+	EventBus.emit_signal("combat_ready")
 	start_turn()
 
 

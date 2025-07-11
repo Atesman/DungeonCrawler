@@ -7,6 +7,7 @@ signal def_changed(current_def: int)
 signal block_changed(current_block: int)
 signal melee_changed(current_melee_atk: int)
 signal ranged_changed(current_ranged_atk: int)
+signal bonus_damage_changed(bonus_damage: int)
 #is my turn signal and var
 
 var sprite_path: String
@@ -17,6 +18,7 @@ var melee_atk: int
 var current_melee_atk: int
 var ranged_atk: int
 var current_ranged_atk: int
+var bonus_damage: int
 var base_def: int
 var current_def: int
 var base_block: int
@@ -36,6 +38,7 @@ func set_core_stats(blueprint: Dictionary) -> void:
 	current_melee_atk = melee_atk
 	ranged_atk = blueprint["ranged_atk"]
 	current_ranged_atk = ranged_atk
+	bonus_damage = 0
 	base_def = blueprint["def"]
 	current_def = base_def
 	base_block = blueprint["block"]
@@ -82,9 +85,9 @@ func disengage() -> void:
 func attack() -> int:
 	var damage: int
 	if currently_engaged:
-		damage = melee_attack()
+		damage = (melee_attack() + bonus_damage)
 	else:
-		damage = ranged_attack()
+		damage = (ranged_attack() + bonus_damage)
 	return damage
 
 
@@ -98,8 +101,13 @@ func ranged_attack() -> int:
 	return damage
 
 
+func adjust_bonus_damage(amount: int):
+	bonus_damage = (bonus_damage + amount)
+	emit_signal("bonus_damage_changed", bonus_damage)
+
+
 func defend() -> void:
-	current_def = current_def + current_block # when do you use the action? here or in combat manager?
+	current_def = current_def + current_block
 	emit_signal("def_changed", current_def)
 	
 

@@ -4,7 +4,7 @@ extends Ability
 
 func handle_init_data(data: Array): pass
 func connect_signals(): pass
-	#ability_owner.connect("turn_started", self, "_on_turn_start")
+	#owner.connect("turn_started", self, "_on_turn_start")
 
 
 #func on_attack(target: Node) -> void:
