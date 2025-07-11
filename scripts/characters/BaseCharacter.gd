@@ -10,6 +10,8 @@ signal ranged_changed(current_ranged_atk: int)
 signal bonus_damage_changed(bonus_damage: int)
 #is my turn signal and var
 
+signal is_this_character_engaged(character: BaseCharacter)
+
 var sprite_path: String
 var character_name: String
 var max_hp: int
@@ -82,9 +84,9 @@ func disengage() -> void:
 	currently_engaged = false
 
 
-func attack() -> int:
+func attack(melee_range: bool) -> int:
 	var damage: int
-	if currently_engaged:
+	if melee_range:
 		damage = (melee_attack() + bonus_damage)
 	else:
 		damage = (ranged_attack() + bonus_damage)
