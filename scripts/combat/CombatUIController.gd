@@ -6,7 +6,7 @@ signal enemy_targeted(target: BaseCharacter)
 var options_ui: Control
 var character_overlay: Node
 
-func setup() -> void:
+func setup() -> void:                                                           #issues here with calling twice?
 	SceneManager.add_overlay("res://scenes/overlay/CombatOptions.tscn")
 	options_ui = get_tree().root.get_node("Main/OverlayLayer/CombatOptions")
 	add_child(options_ui)

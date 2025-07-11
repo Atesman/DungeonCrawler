@@ -12,10 +12,6 @@ func _handle_init_data(data: Array):
 	atk_bonus = data[0]
 
 
-func _on_combat_ready():
-	pass
-
-
 func _connect_signals():
 	EventBus.connect("turn_order_changed", Callable(self, "_on_turn_order_changed"))
 
