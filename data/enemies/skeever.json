@@ -1,8 +1,8 @@
 {
-	"name": "Rat",
+	"name": "Skeever",
 	"max_hp": 20,
-	"melee_atk": 5,
-	"ranged_atk":2,
+	"melee_atk": 3,
+	"ranged_atk":1,
 	"def": 2,
 	"block": 4,
 	"max_actions": 2,
