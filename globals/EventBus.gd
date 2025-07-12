@@ -1,18 +1,18 @@
 extends Node
 
-
+# Combat Cycle
 signal combat_ready()
+#signal combat_ended()
 
+# Turn Cycle
+#signal turn_started(character)
+#signal turn_ended(character)
+
+# Death
 signal turn_order_changed(turn_order)
 
 
-# Combat lifecycle
-#signal combat_started()
-#signal combat_ended()
 
-# Turn cycle
-#signal turn_started(character)
-#signal turn_ended(character)
 
 # Action events
 #signal action_used(user, ability_name, target)

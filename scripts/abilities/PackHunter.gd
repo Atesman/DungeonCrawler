@@ -1,11 +1,7 @@
 extends Ability
 
-const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
-
 var atk_bonus: int
 var previous_bonus_damage = 0
-
-var turn_manager: Node
 
 
 func _handle_init_data(data: Array):

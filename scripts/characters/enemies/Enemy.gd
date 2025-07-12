@@ -5,7 +5,6 @@ signal intent_changed(current_intent: String)
 var melee_affinity: float
 var action_probabilities: Dictionary
 var actions_queue: Array[String]
-var abilities: Array[Ability] = []
 
 
 func _ready():

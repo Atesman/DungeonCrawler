@@ -18,11 +18,14 @@ func setup(overlay: Node, anchors: Dictionary, turn_manager_node: Node):
 
 
 func process_player_action(action: String, target: BaseCharacter) -> void:
-	var attack_range = (close_quarter_characters["enemy"] == target)
+	var in_melee_range = (close_quarter_characters["enemy"] == target)
 	match action:
 		"attack":
-			await _play_attack_animation(player_ref, target)
-			var damage = player_ref.attack(attack_range)
+			if in_melee_range:
+				await _play_melee_animation(player_ref)
+			else:
+				await _play_ranged_animation(player_ref)
+			var damage = player_ref.attack(in_melee_range)
 			target.recieve_damage(damage)
 		"defend":
 			await _play_defend_animation(player_ref)
@@ -36,11 +39,14 @@ func process_player_action(action: String, target: BaseCharacter) -> void:
 
 
 func process_enemy_action(enemy: Node, action: String):
-	var attack_range = (close_quarter_characters["enemy"] == enemy)
+	var in_melee_range = (close_quarter_characters["enemy"] == enemy)
 	match action:
 		"attack":
-			await _play_attack_animation(enemy, player_ref)
-			var damage = enemy.attack(attack_range)
+			if in_melee_range:
+				await _play_melee_animation(enemy)
+			else:
+				await _play_ranged_animation(enemy)
+			var damage = enemy.attack(in_melee_range)
 			player_ref.recieve_damage(damage)
 		"defend":
 			await _play_defend_animation(enemy)
@@ -106,16 +112,22 @@ func _enemy_disengage(enemy: Node):
 	player_ref.disengage()
 	enemy.disengage()
 	_clear_close_quarters()
-	_handle_player_disengage_move(enemy)
+	_handle_enemy_disengage_move(enemy)
 
 
-func _play_attack_animation(attacker: BaseCharacter, target: BaseCharacter) -> void:
-	var with_this_enemy = (close_quarter_characters["enemy"] == target)
-	character_overlay.show_action(attacker, "melee" if attacker.currently_engaged && with_this_enemy else "ranged")
+func _play_melee_animation(attacker: BaseCharacter) -> void:
+	character_overlay.show_action(attacker, "melee")
 	var wrapper = character_overlay.sprite_map.get(attacker)
 	if wrapper:
 		await wrapper.play_attack_animation()
 
+
+func _play_ranged_animation(attacker: BaseCharacter) -> void:
+	character_overlay.show_action(attacker, "ranged")
+	var wrapper = character_overlay.sprite_map.get(attacker)
+	if wrapper:
+		await wrapper.play_attack_animation()
+		
 
 func _play_defend_animation(character: BaseCharacter) -> void:
 	character_overlay.show_action(character, "defend")

@@ -10,7 +10,9 @@ signal ranged_changed(current_ranged_atk: int)
 signal bonus_damage_changed(bonus_damage: int)
 #is my turn signal and var
 
-signal is_this_character_engaged(character: BaseCharacter)
+
+var abilities: Array[Ability]
+
 
 var sprite_path: String
 var character_name: String
@@ -49,6 +51,7 @@ func set_core_stats(blueprint: Dictionary) -> void:
 	temp_max_actions = max_actions
 	current_actions = max_actions
 	currently_engaged = false
+	abilities = []
 
 
 func reset_actions():
