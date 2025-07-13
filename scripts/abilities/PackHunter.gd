@@ -24,6 +24,6 @@ func _on_turn_order_changed(turn_order: Array):
 	
 
 func _caclulate_pack_bonus() -> int:
-	var ally_amount = (GameState.get_current_enemies().size() - 1)
+	var ally_amount = (RunManager.current_game_state.get_current_enemies().size() - 1)
 	var bonus_damage = (ally_amount * atk_bonus)
 	return bonus_damage

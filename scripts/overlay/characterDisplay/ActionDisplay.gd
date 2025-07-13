@@ -14,7 +14,7 @@ const VISIBLE_TIME := 0.1
 
 
 func _ready():
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	action_icon.modulate.a = 0.0
 	position_action_values()

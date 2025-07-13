@@ -12,7 +12,7 @@ var Y_OFFSET := 135
 
 
 func _ready():
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	target.def_changed.connect(_on_def_changed)
 	label.text = "DEF: %d" % [target.current_def]

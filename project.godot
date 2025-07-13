@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://globals/GameState.gd"
 SceneManager="*res://globals/SceneManager.gd"
 SoundManager="*res://globals/SoundManager.gd"
 AbilityManager="*res://globals/AbilityManager.gd"

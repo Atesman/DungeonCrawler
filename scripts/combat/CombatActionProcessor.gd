@@ -1,6 +1,6 @@
 extends Node
 
-var player_ref = GameState.get_player()
+var player_ref = RunManager.current_game_state.get_player()
 var turn_manager: Node
 
 var character_overlay: Node
@@ -66,7 +66,7 @@ func process_enemy_action(enemy: Node, action: String):
 
 func death_check(character: Node) -> String:
 	if character.current_hp <= 0:	
-		if character == GameState.get_player():
+		if character == player_ref:
 			return("defeat")
 		else:
 			if close_quarter_characters["enemy"] == character:
@@ -74,7 +74,7 @@ func death_check(character: Node) -> String:
 			character_overlay.remove_character_overlay(character)
 			if turn_manager.get_turn_order().size() == 2:
 				return("victory")
-			GameState.remove_enemy(character)
+			RunManager.current_game_state.remove_enemy(character)
 			turn_manager.remove_from_turn_order(character) # will this cause issues with turn order and indexing? # remove from game state current enemies. 
 			return("")
 	return("")

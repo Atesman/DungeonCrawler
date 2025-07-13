@@ -8,7 +8,7 @@ const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
 
 func _ready():
 	_initialize_sprite()
-	if character != GameState.get_player():
+	if character != RunManager.current_game_state.get_player():
 		$Area2D.input_event.connect(_input_event)
 
 

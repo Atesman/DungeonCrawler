@@ -98,9 +98,9 @@ func process_enemy_actions(actions_queue: Array[String]):
 		if skip_next:
 			skip_next = false
 			continue
-		if action == "engage" and not GameState.get_player().currently_engaged:
+		if action == "engage" and not RunManager.current_game_state.get_player().currently_engaged:
 			skip_next = true
-		if action == "disengage" and GameState.get_player().currently_engaged:
+		if action == "disengage" and RunManager.current_game_state.get_player().currently_engaged:
 			skip_next = true	
 		await action_processor.process_enemy_action(current_character, action)
 		action_used()
@@ -169,12 +169,12 @@ func death_check():
 func end_combat(result: String):
 	combat_ended = true
 	_lock_input()
-	GameState.clear_current_enemies()
+	RunManager.current_game_state.clear_current_enemies()
 	if result == "victory":
-		GameState.current_floor = GameState.current_floor + 1
+		RunManager.current_game_state.current_floor = RunManager.current_game_state.current_floor + 1
 		SceneManager.add_ui("res://scenes/ui/CombatVictory.tscn")
 	else:
-		GameState.current_floor = 1
+		RunManager.current_game_state.current_floor = 1
 		SceneManager.add_ui("res://scenes/ui/CombatDefeat.tscn")
 
 

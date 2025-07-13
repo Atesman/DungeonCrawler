@@ -13,7 +13,7 @@ var Y_OFFSET := 160
 
 func _ready():
 	#if target is player or enemy then change x/y offsets
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	target.ap_changed.connect(_on_ap_changed)
 	label.text = "ACT: %d / %d" % [target.current_actions, target.max_actions]

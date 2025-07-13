@@ -12,7 +12,7 @@ var Y_OFFSET := 110
 
 
 func _ready():
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	target.block_changed.connect(_on_block_changed)
 	label.text = "BLK: %d" % [target.current_block]

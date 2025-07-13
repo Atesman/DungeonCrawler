@@ -12,9 +12,9 @@ var character_overlay: Node = null
 
 
 func _ready():
-	GameState.create_current_enemies()
-	player_ref = GameState.get_player()
-	enemies_ref = GameState.get_current_enemies()
+	RunManager.current_game_state.create_current_enemies()
+	player_ref = RunManager.current_game_state.get_player()
+	enemies_ref = RunManager.current_game_state.get_current_enemies()
 
 	SceneManager.add_overlay("res://scenes/overlay/characterDisplay/CharacterOverlay.tscn")
 	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay")
@@ -31,8 +31,6 @@ func load_player():
 		"spawn": $PlayerSpawn.position,
 		"engage": $PlayerEngage.position
 	}
-	if player_ref.get_parent() != self:
-		add_child(player_ref)
 	character_overlay.add_character_overlay(player_ref)
 
 
@@ -50,7 +48,9 @@ func load_enemies():
 			"spawn": spawn_node.position,
 			"engage": engage_node.position
 		}
+
 		add_child(enemy_character)
+        
 		character_overlay.add_character_overlay(enemy_character)
 		enemy_counter = (enemy_counter + 1)	
 

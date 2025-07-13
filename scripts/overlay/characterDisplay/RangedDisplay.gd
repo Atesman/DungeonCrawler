@@ -12,7 +12,7 @@ var Y_OFFSET := 85
 
 
 func _ready():
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	target.ranged_changed.connect(_on_ranged_changed)
 	label.text = "RAN: %d" % [target.current_ranged_atk]

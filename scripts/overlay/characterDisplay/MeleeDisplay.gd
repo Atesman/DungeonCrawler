@@ -12,7 +12,7 @@ var Y_OFFSET := 60
 
 
 func _ready():
-	if target == GameState.get_player():
+	if target == RunManager.current_game_state.get_player():
 		X_OFFSET = PLAYER_X_OFFSET
 	target.melee_changed.connect(_on_melee_changed)
 	label.text = "MEL: %d" % [target.current_melee_atk]
