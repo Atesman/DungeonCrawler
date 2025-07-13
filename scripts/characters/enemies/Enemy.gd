@@ -1,26 +1,35 @@
 extends BaseCharacter
+class_name Enemy
 
 signal intent_changed(current_intent: String)
 
 var melee_affinity: float
 var action_probabilities: Dictionary
 var actions_queue: Array[String]
+var starting_abilities: Dictionary
+
+
+func _init(blueprint: Dictionary):
+	super._init(blueprint)
+	melee_affinity = blueprint["melee_affinity"]
+	action_probabilities = blueprint["action_probabilities"]
+	starting_abilities = blueprint.get("abilities", {})
+	
 
 
 func _ready():
-	var dungeon = get_tree().root.get_node("Main/GameLayer/Dungeon")
-
-
-func create_enemy(blueprint: Dictionary) -> void:
-	set_core_stats(blueprint)
-	melee_affinity = blueprint["melee_affinity"]
-	action_probabilities = blueprint["action_probabilities"]
-	var ability_dictionary = blueprint.get("abilities", {})
-	for ability in ability_dictionary.keys():
-		var data = ability_dictionary[ability]
+	super._ready()
+	for ability in starting_abilities.keys():
+		var data = starting_abilities[ability]
 		var ability_instance = AbilityManager.create_ability(self, ability, data)
-		add_child(ability_instance)
-		abilities.append(ability_instance)
+		effects_manager.add_effect(ability_instance)
+
+
+func set_innate_abilities():
+	for ability in starting_abilities.keys():
+		var data = starting_abilities[ability]
+		var ability_instance = AbilityManager.create_ability(self, ability, data)
+		#abilities.append(ability_instance)
 
 
 func choose_actions() -> void:
@@ -82,3 +91,5 @@ func decide_to_move() -> String:
 			return "engage"
 		else:
 			return ""
+
+

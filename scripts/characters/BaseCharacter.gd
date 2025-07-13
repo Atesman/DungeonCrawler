@@ -1,6 +1,8 @@
 extends Node
 class_name BaseCharacter
 
+const EffectsManager = preload("res://scripts/characters/EffectsManager.gd")
+
 signal hp_changed(current_hp: int)
 signal ap_changed(current_actions: int)
 signal def_changed(current_def: int)
@@ -10,27 +12,43 @@ signal ranged_changed(current_ranged_atk: int)
 signal bonus_damage_changed(bonus_damage: int)
 #is my turn signal and var
 
+var effects_manager: EffectsManager = null
 
-var abilities: Array[Ability]
-
-
+# Basic Info
 var sprite_path: String
 var character_name: String
+# HP
 var max_hp: int
 var current_hp: int
+# Attack
 var melee_atk: int
 var current_melee_atk: int
 var ranged_atk: int
 var current_ranged_atk: int
 var bonus_damage: int
+# Defense
 var base_def: int
 var current_def: int
 var base_block: int
 var current_block: int
+# Actions
 var max_actions: int
 var temp_max_actions: int #refactor current_max_actions
 var current_actions: int # refactor remaining_actions
+# Misc
 var currently_engaged: bool
+
+
+func _init(blueprint: Dictionary) -> void:
+	set_core_stats(blueprint)
+
+
+func _ready():
+	if effects_manager != null:
+		return
+	effects_manager = EffectsManager.new()
+	add_child(effects_manager)
+
 
 
 func set_core_stats(blueprint: Dictionary) -> void:
@@ -51,7 +69,6 @@ func set_core_stats(blueprint: Dictionary) -> void:
 	temp_max_actions = max_actions
 	current_actions = max_actions
 	currently_engaged = false
-	abilities = []
 
 
 func reset_actions():
@@ -75,8 +92,9 @@ func recieve_damage(damage: int) -> void:
 	current_def -= damage_blocked
 	current_def = max(current_def, 0)
 	emit_signal("def_changed", current_def)
-	current_hp = current_hp - damage_taken
-	emit_signal("hp_changed", current_hp)
+	if damage_taken > 0:
+		current_hp = current_hp - damage_taken
+		emit_signal("hp_changed", current_hp)
 
 
 func engage() -> void:

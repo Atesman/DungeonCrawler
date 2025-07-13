@@ -13,8 +13,7 @@ var current_floor: int = 1
 
 func create_new_player(data: Dictionary) -> void:
 	player_starting_data = data
-	player_node = Player.new()
-	player_node.create_player(data)
+	player_node = Player.new(data)
 
 
 func get_player() -> Player:

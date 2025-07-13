@@ -5,7 +5,7 @@ var ability_owner: Node = null
 #var icon: path
 
 
-func init(character: Node, init_data: Array) -> void:
+func _init(character: Node, init_data: Array) -> void:
 	ability_owner = character
 	_handle_init_data(init_data)
 	_connect_signals()

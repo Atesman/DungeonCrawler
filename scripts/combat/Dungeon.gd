@@ -31,6 +31,7 @@ func load_player():
 		"spawn": $PlayerSpawn.position,
 		"engage": $PlayerEngage.position
 	}
+	add_child(player_ref)
 	character_overlay.add_character_overlay(player_ref)
 
 
@@ -48,6 +49,7 @@ func load_enemies():
 			"spawn": spawn_node.position,
 			"engage": engage_node.position
 		}
+		add_child(enemy_character)
 		character_overlay.add_character_overlay(enemy_character)
 		enemy_counter = (enemy_counter + 1)	
 
