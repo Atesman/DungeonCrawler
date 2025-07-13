@@ -31,7 +31,8 @@ func load_player():
 		"spawn": $PlayerSpawn.position,
 		"engage": $PlayerEngage.position
 	}
-	add_child(player_ref)
+	if player_ref.get_parent() != self:
+		add_child(player_ref)
 	character_overlay.add_character_overlay(player_ref)
 
 

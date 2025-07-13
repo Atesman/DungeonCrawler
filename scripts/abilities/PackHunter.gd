@@ -19,7 +19,8 @@ func _on_turn_order_changed(turn_order: Array):
 		if bonus_differential == 0:
 			return
 		else:
-			ability_owner.adjust_bonus_damage(bonus_differential)
+			if is_instance_valid(ability_owner):
+				ability_owner.adjust_bonus_damage(bonus_differential)
 	
 
 func _caclulate_pack_bonus() -> int:

@@ -22,6 +22,7 @@ SceneManager="*res://globals/SceneManager.gd"
 SoundManager="*res://globals/SoundManager.gd"
 AbilityManager="*res://globals/AbilityManager.gd"
 EventBus="*res://globals/EventBus.gd"
+RunManager="*res://globals/RunManager.gd"
 
 [display]
 
