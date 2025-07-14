@@ -2,13 +2,15 @@ extends Node
 class_name Ability
 
 var ability_owner: Node = null
+var ability_name: String = ""
 #var icon: path
 
 
-func _init(character: Node, init_data: Array) -> void:
-	ability_owner = character
-	_handle_init_data(init_data)
-	_connect_signals()
+func _init(character: Node, name: String, init_data: Array) -> void:
+    ability_owner = character
+    ability_name = name
+    _handle_init_data(init_data)
+    _connect_signals()
 
 
 func _handle_init_data(data: Array): pass

@@ -16,20 +16,16 @@ func _init(blueprint: Dictionary):
 	starting_abilities = blueprint.get("abilities", {})
 	
 
-
 func _ready():
 	super._ready()
-	for ability in starting_abilities.keys():
-		var data = starting_abilities[ability]
-		var ability_instance = AbilityManager.create_ability(self, ability, data)
-		effects_manager.add_effect(ability_instance)
+	EventBus.connect("combat_ready", Callable(self, "set_innate_abilities"))
 
 
 func set_innate_abilities():
 	for ability in starting_abilities.keys():
 		var data = starting_abilities[ability]
 		var ability_instance = AbilityManager.create_ability(self, ability, data)
-		#abilities.append(ability_instance)
+		effects_manager.add_effect(ability_instance)
 
 
 func choose_actions() -> void:

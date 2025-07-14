@@ -10,6 +10,7 @@ const MeleeDisplayScene := preload("res://scenes/overlay/characterDisplay/MeleeD
 const RangedDisplayScene := preload("res://scenes/overlay/characterDisplay/RangedDisplay.tscn")
 const BlockDisplayScene := preload("res://scenes/overlay/characterDisplay/BlockDisplay.tscn")
 const ActionDisplayScene := preload("res://scenes/overlay/characterDisplay/ActionDisplay.tscn")
+const StatusEffectsDisplayScene := preload("res://scenes/overlay/characterDisplay/StatusEffectsDisplay.tscn")
 const IntentDisplayScene := preload("res://scenes/overlay/characterDisplay/IntentDisplay.tscn")
 
 
@@ -20,6 +21,7 @@ var melee_display: Node
 var ranged_display: Node
 var block_display: Node
 var action_display: Node
+var status_effects_display: Node
 var intent_display: Node
 
 
@@ -52,6 +54,10 @@ func _ready():
 		action_display = ActionDisplayScene.instantiate()
 		action_display.target = character
 		add_child(action_display)
+
+		status_effects_display = StatusEffectsDisplayScene.instantiate()
+		status_effects_display.target = character
+		add_child(status_effects_display)
 
 		if character is Enemy:
 			intent_display = IntentDisplayScene.instantiate()

@@ -8,5 +8,5 @@ func _ready() -> void:
 func create_ability(target: BaseCharacter, ability_name: String, data: Array) -> Node:
 	var path = "res://scripts/abilities/%s.gd" % ability_name
 	var ability_script = load(path)
-	var ability_instance = ability_script.new(target, data)
+	var ability_instance = ability_script.new(target, ability_name, data)
 	return ability_instance

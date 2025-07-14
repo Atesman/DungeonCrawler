@@ -2,8 +2,6 @@ extends Node
 
 @onready var combat_manager = $CombatManager
 
-const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
-
 var player_ref: Node = null
 var enemies_ref: Array[Enemy] = []
 var actor_spawn_points: Dictionary = {}
@@ -50,7 +48,7 @@ func load_enemies():
 		}
 
 		add_child(enemy_character)
-        
+
 		character_overlay.add_character_overlay(enemy_character)
 		enemy_counter = (enemy_counter + 1)	
 

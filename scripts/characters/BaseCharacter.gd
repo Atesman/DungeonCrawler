@@ -50,7 +50,6 @@ func _ready():
 	add_child(effects_manager)
 
 
-
 func set_core_stats(blueprint: Dictionary) -> void:
 	sprite_path = blueprint["sprite_path"]
 	character_name = blueprint["name"]
