@@ -21,3 +21,6 @@ signal turn_order_changed(turn_order)
 # Status & data changes
 #signal health_changed(character, old_hp, new_hp)
 #signal stat_modified(character, stat_name, old_value, new_value)
+
+
+signal set_effects_up()

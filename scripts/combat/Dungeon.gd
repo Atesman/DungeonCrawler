@@ -19,6 +19,7 @@ func _ready():
 
 	load_player()
 	load_enemies()
+	EventBus.emit_signal("set_effects_up")
 	var turn_order = decide_turn_order()
 	combat_manager.start_combat(turn_order, character_anchor_points)
 

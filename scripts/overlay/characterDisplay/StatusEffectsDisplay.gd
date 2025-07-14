@@ -2,10 +2,13 @@ extends Node
 
 @export var target: Node
 
+const EffectInfo = preload("res://scenes/overlay/characterDisplay/EffectInfo.tscn")
+
 @onready var container = $VBoxContainer
+@onready var status_bar = $VBoxContainer/StatusBar
 @onready var texture_rect = $VBoxContainer/StatusBar/TextureRect
 
-const Y_OFFSET := 180
+var Y_OFFSET := 180
 var X_OFFSET := 140
 
 
@@ -15,10 +18,11 @@ func _ready() -> void:
 
 
 func _on_effect_added(effect: Node):
-	var texture_path = "res://assets/sprites/%s_icon.png" % effect.ability_name
-	var new_texture = load(texture_path)
-	if new_texture:
-		texture_rect.texture = new_texture
+
+	var effect_icon = EffectInfo.instantiate()
+	effect_icon.effect_ref = effect
+	status_bar.add_child(effect_icon)
+
 
 
 func position_status_bar():

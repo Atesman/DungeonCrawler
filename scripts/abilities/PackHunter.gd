@@ -12,7 +12,7 @@ func _connect_signals():
 	EventBus.connect("turn_order_changed", Callable(self, "_on_turn_order_changed"))
 
 
-func _on_turn_order_changed(turn_order: Array):
+func _on_turn_order_changed(_turn_order: Array):
 		var bonus_damage = _caclulate_pack_bonus()
 		var bonus_differential = bonus_damage - previous_bonus_damage
 		previous_bonus_damage = bonus_damage

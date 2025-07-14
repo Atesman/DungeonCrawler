@@ -18,7 +18,7 @@ func _init(blueprint: Dictionary):
 
 func _ready():
 	super._ready()
-	EventBus.connect("combat_ready", Callable(self, "set_innate_abilities"))
+	EventBus.connect("set_effects_up", Callable(self, "set_innate_abilities"))
 
 
 func set_innate_abilities():

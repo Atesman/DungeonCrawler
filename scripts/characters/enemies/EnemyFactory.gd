@@ -1,9 +1,13 @@
 extends Node
-class_name EnemyFactory
+#class_name EnemyFactory
 
 const Enemy = preload("res://scripts/characters/enemies/Enemy.gd")
 
 static var enemy_pools := {}
+
+
+static func _init():
+	load_enemy_pools()
 
 
 static func load_enemy_pools():
@@ -42,7 +46,6 @@ static func create_enemy_group(enemy_list: Array) -> Array[Enemy]:
 
 static func create_new_enemy(data: Dictionary) -> Enemy:
 	var enemy = Enemy.new(data)
-	#enemy.create_enemy(data)
 	return enemy
 
 
