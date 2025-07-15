@@ -5,7 +5,7 @@ signal combat_ready()
 #signal combat_ended()
 
 # Turn Cycle
-#signal turn_started(character)
+signal turn_started(character)
 #signal turn_ended(character)
 
 # Death

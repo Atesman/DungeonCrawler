@@ -1,10 +1,11 @@
 extends Node
 class_name Ability
 
+signal display_value_updated(display_value)
+
 var ability_owner: Node = null
 var ability_name: String = ""
 var display_value: int = 0
-#var icon: path
 
 
 func _init(character: Node, name: String, init_data: Array) -> void:
@@ -16,6 +17,11 @@ func _init(character: Node, name: String, init_data: Array) -> void:
 	_connect_signals()
 
 
+func update_display_value(value: int):
+	display_value = value
+	emit_signal("display_value_updated", display_value)
+
+
 func _handle_init_data(data: Array): pass
 func _connect_signals(): pass
 
@@ -23,6 +29,7 @@ func _connect_signals(): pass
 func _on_combat_ready(): pass
 func _on_turn_order_changed(turn_order: Array): pass
 func _on_health_damaged(target: BaseCharacter, amount: int): pass
+
 
 #func on_turn_start(): pass
 #func on_turn_end(): pass

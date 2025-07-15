@@ -22,7 +22,7 @@ func _on_effect_added(effect: Node):
 	var effect_icon = EffectInfo.instantiate()
 	effect_icon.effect_ref = effect
 	status_bar.add_child(effect_icon)
-
+	#effect_icon.connect_signals()
 
 
 func position_status_bar():

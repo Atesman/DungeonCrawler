@@ -105,6 +105,12 @@ func recieve_damage(damage: int) -> bool:
 	return false
 
 
+func lose_health(amount: int):
+	current_hp = (current_hp - amount)
+	emit_signal("hp_changed", current_hp)
+
+
+
 func engage() -> void:
 	currently_engaged = true
 

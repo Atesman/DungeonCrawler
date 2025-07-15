@@ -47,6 +47,9 @@ func _instantiate_combat_helpers(order: Array[BaseCharacter], overlay: Node, anc
 
 func start_turn():
 	current_character = turn_manager.get_current_character()
+	EventBus.emit_signal("turn_started", current_character)
+	death_check()												# eventually need to set up a has died signal that is listened to that calls death check
+
 	if current_character is Player:
 		await wait_seconds(0.01)
 		_unlock_input()

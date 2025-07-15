@@ -73,6 +73,7 @@ func update_positions(target_anchor: Vector2):
 	ranged_display.update_position(target_anchor)
 	block_display.update_position(target_anchor)
 	action_display.update_position(target_anchor)
+	status_effects_display.update_position(target_anchor)
 	if character is Enemy:
 		intent_display.update_position(target_anchor)
 
@@ -95,6 +96,7 @@ func begin_movement_animation():
 	fade_all_children(melee_display, 0.0, tween)
 	fade_all_children(ranged_display, 0.0, tween)
 	fade_all_children(block_display, 0.0, tween)
+	fade_all_children(status_effects_display, 0.0, tween)
 	if intent_display:
 		fade_all_children(intent_display, 0.0, tween)
 
@@ -107,6 +109,7 @@ func end_movement_animation():
 	fade_all_children(melee_display, 1.0, tween)
 	fade_all_children(ranged_display, 1.0, tween)
 	fade_all_children(block_display, 1.0, tween)
+	fade_all_children(status_effects_display, 1.0, tween)
 	if intent_display:
 		fade_all_children(intent_display, 1.0, tween)
 
