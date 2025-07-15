@@ -151,6 +151,7 @@ func end_turn():
 		_lock_input()
 		_enemies_reset()
 	exit_targeting_mode()
+	EventBus.emit_signal("turn_ended", current_character)
 	await wait_seconds(delay_between_enemy_actions)
 	turn_manager.next_turn()
 	start_turn()

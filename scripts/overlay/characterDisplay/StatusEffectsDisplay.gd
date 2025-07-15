@@ -11,18 +11,28 @@ const EffectInfo = preload("res://scenes/overlay/characterDisplay/EffectInfo.tsc
 var Y_OFFSET := 180
 var X_OFFSET := 140
 
+var current_effect_icons := []
+
 
 func _ready() -> void:
-	position_status_bar()
 	target.effects_manager.effect_added.connect(_on_effect_added)
-
+	target.effects_manager.effect_removed.connect(_on_effect_removed)
+	position_status_bar()
+	
 
 func _on_effect_added(effect: Node):
-
 	var effect_icon = EffectInfo.instantiate()
 	effect_icon.effect_ref = effect
+	current_effect_icons.append(effect_icon)
 	status_bar.add_child(effect_icon)
-	#effect_icon.connect_signals()
+
+
+func _on_effect_removed(effect: Node):
+	for effect_icon in current_effect_icons:
+		if effect_icon.effect_ref == effect:
+			current_effect_icons.erase(effect_icon)
+			effect_icon.queue_free()
+			return
 
 
 func position_status_bar():
