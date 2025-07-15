@@ -1,6 +1,6 @@
 extends Node
 
-const EnemyFactory = preload("res://scripts/characters/enemies//EnemyFactory.gd")
+const EnemyFactory = preload("res://scripts/characters/enemies/EnemyFactory.gd")
 const GameState = preload("res://globals/GameState.gd")
 
 var current_game_state = null

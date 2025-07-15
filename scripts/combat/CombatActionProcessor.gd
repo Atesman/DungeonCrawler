@@ -26,7 +26,7 @@ func process_player_action(action: String, target: BaseCharacter) -> void:
 			else:
 				await _play_ranged_animation(player_ref)
 			var damage = player_ref.attack(in_melee_range)
-			target.recieve_damage(damage)
+			player_ref.deal_damage_to(target, damage)
 		"defend":
 			await _play_defend_animation(player_ref)
 			player_ref.defend()
@@ -47,7 +47,7 @@ func process_enemy_action(enemy: Node, action: String):
 			else:
 				await _play_ranged_animation(enemy)
 			var damage = enemy.attack(in_melee_range)
-			player_ref.recieve_damage(damage)
+			enemy.deal_damage_to(player_ref, damage)
 		"defend":
 			await _play_defend_animation(enemy)
 			enemy.defend()

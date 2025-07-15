@@ -1,11 +1,13 @@
 {
 	"1": [
-		{ "enemies": ["orc"], "weight": 0.0 },
 		{ "enemies": ["ant"], "weight": 0.0 },
-		{ "enemies": ["skeever", "skeever", "skeever"], "weight": 0.2 }
+		{ "enemies": ["imp", "imp"], "weight": 1.0 },
+		{ "enemies": ["orc"], "weight": 0.0 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight": 0.0 },
+
+		{ "enemies": ["orc"], "weight": 0.0 }
 	],
 	"2": [
-		{ "enemies": ["orc", "orc"], "weight": 1.0 },
-		{ "enemies": [], "weight": 0.0 }
+		{ "enemies": ["orc", "orc"], "weight": 1.0 }
 	]
 }

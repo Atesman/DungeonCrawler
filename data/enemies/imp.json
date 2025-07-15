@@ -1,0 +1,18 @@
+{
+	"name": "imp",
+	"max_hp": 10,
+	"melee_atk": 4,
+	"ranged_atk":3,
+	"def": 3,
+	"block": 6,
+	"max_actions": 2,
+	"melee_affinity": 0.50,
+	"sprite_path": "res://assets/sprites/imp.png",
+	"action_probabilities": {
+		"attack": 0.75,
+		"defend": 0.25
+	},
+	"abilities": {
+		"Poisonous": [1]
+	}
+}

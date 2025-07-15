@@ -13,7 +13,7 @@ func _ready() -> void:
 	
 
 func set_texture():
-	var texture_path = "res://assets/sprites/%s_icon.png" % effect_ref.ability_name
+	var texture_path = "res://assets/icons/%s_icon.png" % effect_ref.ability_name
 	var new_texture = load(texture_path)
 	if new_texture:
 		texture_rect.texture = new_texture

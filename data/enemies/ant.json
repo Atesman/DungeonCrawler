@@ -12,7 +12,5 @@
 		"attack": 0.5,
 		"defend": 0.5
 	},
-	"abilities": {
-		"Poisonous": []
-	}
+	"abilities": {}
 }

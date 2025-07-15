@@ -22,6 +22,7 @@ func _connect_signals(): pass
 
 func _on_combat_ready(): pass
 func _on_turn_order_changed(turn_order: Array): pass
+func _on_health_damaged(target: BaseCharacter, amount: int): pass
 
 #func on_turn_start(): pass
 #func on_turn_end(): pass

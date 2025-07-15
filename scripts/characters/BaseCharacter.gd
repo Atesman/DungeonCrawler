@@ -10,6 +10,7 @@ signal block_changed(current_block: int)
 signal melee_changed(current_melee_atk: int)
 signal ranged_changed(current_ranged_atk: int)
 signal bonus_damage_changed(bonus_damage: int)
+signal health_damaged(target: BaseCharacter, amount: int)
 #is my turn signal and var
 
 var effects_manager: EffectsManager = null
@@ -85,7 +86,13 @@ func has_no_actions() -> bool:
 	return current_actions == 0
 
 
-func recieve_damage(damage: int) -> void:
+func deal_damage_to(target: Node, amount: int) -> void:
+	var changed = target.recieve_damage(amount)
+	if changed:
+		emit_signal("health_damaged", target, amount)
+
+
+func recieve_damage(damage: int) -> bool:
 	var damage_blocked = min(current_def, damage)
 	var damage_taken = damage - damage_blocked
 	current_def -= damage_blocked
@@ -94,6 +101,8 @@ func recieve_damage(damage: int) -> void:
 	if damage_taken > 0:
 		current_hp = current_hp - damage_taken
 		emit_signal("hp_changed", current_hp)
+		return true
+	return false
 
 
 func engage() -> void:
