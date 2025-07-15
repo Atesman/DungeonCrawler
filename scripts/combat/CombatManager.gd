@@ -23,6 +23,10 @@ var pending_action: String = ""
 var delay_between_enemy_actions := 0.9
 
 
+func _ready():
+	EventBus.connect("character_died", Callable(self, "_on_character_died"))
+
+
 func start_combat(order: Array[BaseCharacter], anchors: Dictionary) -> void:
 	character_overlay = get_tree().root.get_node("Main/OverlayLayer/CharacterOverlay")
 	_instantiate_combat_helpers(order, character_overlay, anchors)
@@ -48,7 +52,6 @@ func _instantiate_combat_helpers(order: Array[BaseCharacter], overlay: Node, anc
 func start_turn():
 	current_character = turn_manager.get_current_character()
 	EventBus.emit_signal("turn_started", current_character)
-	death_check()												# eventually need to set up a has died signal that is listened to that calls death check
 
 	if current_character is Player:
 		await wait_seconds(0.01)
@@ -154,10 +157,14 @@ func end_turn():
 
 
 func action_used():
-	death_check()
+	#death_check()
 	exit_targeting_mode()
 	if current_character.has_no_actions():
 		end_turn()
+
+
+func _on_character_died(character: Node):
+	death_check()
 
 
 func death_check():

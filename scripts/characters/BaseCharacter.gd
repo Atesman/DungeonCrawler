@@ -101,6 +101,8 @@ func recieve_damage(damage: int) -> bool:
 	if damage_taken > 0:
 		current_hp = current_hp - damage_taken
 		emit_signal("hp_changed", current_hp)
+		if current_hp <= 0:
+			EventBus.emit_signal("character_died", self)
 		return true
 	return false
 
@@ -108,7 +110,8 @@ func recieve_damage(damage: int) -> bool:
 func lose_health(amount: int):
 	current_hp = (current_hp - amount)
 	emit_signal("hp_changed", current_hp)
-
+	if current_hp <= 0:
+		EventBus.emit_signal("character_died", self)
 
 
 func engage() -> void:
