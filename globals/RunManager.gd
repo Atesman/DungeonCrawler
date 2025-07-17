@@ -20,5 +20,5 @@ func start_run(player_class: String):
 
 
 func end_run():
+	current_game_state.queue_free()
 	current_game_state = null
-	#add_child(current_game_state)   remove this!

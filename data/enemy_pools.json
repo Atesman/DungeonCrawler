@@ -1,13 +1,40 @@
 {
 	"1": [
-		{ "enemies": ["ant"], "weight": 0.0 },
-		{ "enemies": ["imp", "imp"], "weight": 1.0 },
-		{ "enemies": ["orc"], "weight": 0.0 },
-		{ "enemies": ["skeever", "skeever", "skeever"], "weight": 0.0 },
+		{ "enemies": ["ant"], "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 },
+		{ "enemies": ["orc"], "weight":  0.25 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 },
 
 		{ "enemies": ["orc"], "weight": 0.0 }
 	],
 	"2": [
-		{ "enemies": ["orc", "orc"], "weight": 1.0 }
-	]
+		{ "enemies": ["ant"], "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 },
+		{ "enemies": ["orc"], "weight":  0.25 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 }
+	],
+	"3": [
+		{ "enemies": ["ant"], "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 },
+		{ "enemies": ["orc"], "weight":  0.25 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 },
+
+		{ "enemies": ["orc"], "weight": 0.0 }
+	],
+	"4": [
+		{ "enemies": ["ant"], "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 },
+		{ "enemies": ["orc"], "weight":  0.25 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 },
+
+		{ "enemies": ["orc"], "weight": 0.0 }
+	],
+	"5": [
+		{ "enemies": ["ant"], "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 },
+		{ "enemies": ["orc"], "weight":  0.25 },
+		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 },
+
+		{ "enemies": ["orc"], "weight": 0.0 }
+	],
 }

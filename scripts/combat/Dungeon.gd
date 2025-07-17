@@ -10,6 +10,8 @@ var character_overlay: Node = null
 
 
 func _ready():
+	SoundManager.stop_music()
+	SoundManager.play_music("combat")
 	RunManager.current_game_state.create_current_enemies()
 	player_ref = RunManager.current_game_state.get_player()
 	enemies_ref = RunManager.current_game_state.get_current_enemies()

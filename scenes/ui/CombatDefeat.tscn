@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dofb0nregfv1d"]
 
-[ext_resource type="Script" path="res://scripts/ui/EndCombat.gd" id="1_eityx"]
+[ext_resource type="Script" path="res://scripts/ui/Defeat.gd" id="1_8ocen"]
 
 [node name="CombatDefeat" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_eityx")
+script = ExtResource("1_8ocen")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2

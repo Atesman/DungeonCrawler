@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://gse21r053jon"]
 
 [ext_resource type="Script" path="res://scripts/combat/Dungeon.gd" id="1_om2wp"]
-[ext_resource type="Texture2D" uid="uid://rx6hx4wkmgl1" path="res://assets/backgrounds/dungeon.png" id="2_w43r8"]
+[ext_resource type="Texture2D" uid="uid://cha307psj4g52" path="res://assets/backgrounds/dungeon.png" id="2_w43r8"]
 [ext_resource type="Script" path="res://scripts/combat/CombatManager.gd" id="3_1yj8c"]
 
 [node name="Dungeon" type="Node2D"]
