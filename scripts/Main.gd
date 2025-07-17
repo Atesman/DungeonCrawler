@@ -13,4 +13,4 @@ func _ready():
 
 
 func load_start_screen():
-	SceneManager.change_ui("res://scenes/ui/StartScreen.tscn")
+	SceneManager.transition_scene("res://scenes/StartScreen.tscn")

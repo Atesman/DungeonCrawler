@@ -19,18 +19,23 @@ func set_overlay_layer(layer: Node) -> void:
 
 
 func change_scene(scene_path: String) -> void:
-
-	if game_layer == null:
-		return
-
 	for child in game_layer.get_children():
 		child.queue_free()
-
 	if game_scene_current:
 		game_scene_current.queue_free()
-
 	game_scene_current = load(scene_path).instantiate()
 	game_layer.add_child(game_scene_current)
+
+
+func transition_scene(scene_path: String) -> void:
+	var ui_node = load("res://scenes/ui/TransitionFade.tscn").instantiate()
+	add_ui_node(ui_node)
+	await ui_node.fade_out()
+	clear_overlay()
+	change_scene(scene_path)
+	await ui_node.fade_in()
+	clear_ui()
+	#remove_ui(ui_node)
 
 
 func change_ui(scene_path: String) -> void:
@@ -41,6 +46,11 @@ func change_ui(scene_path: String) -> void:
 func add_ui(scene_path: String) -> void:
 	#check if this node exists already
 	var ui_node = load(scene_path).instantiate()
+	ui_layer.add_child(ui_node)
+
+
+func add_ui_node(ui_node: Control) -> void:
+	#check if this node exists already
 	ui_layer.add_child(ui_node)
 
 

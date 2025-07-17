@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8kd5dlv7xmbo"]
+[gd_scene load_steps=3 format=3 uid="uid://bo0gw5i0hdm7m"]
 
-[ext_resource type="Script" path="res://scripts/ui/StartScreen.gd" id="1_ehmjw"]
+[ext_resource type="Script" path="res://scripts/StartScreen.gd" id="1_7bq5g"]
 [ext_resource type="Texture2D" uid="uid://dd8rguwi3c3ep" path="res://assets/backgrounds/StartScreen.png" id="2_rnbg8"]
 
 [node name="StartScreen" type="Control"]
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ehmjw")
+script = ExtResource("1_7bq5g")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(1920, 1080)

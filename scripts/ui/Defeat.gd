@@ -15,4 +15,4 @@ func _on_menu_button_pressed():
 
 	SceneManager.clear_ui()
 	SceneManager.clear_overlay()
-	SceneManager.change_scene("res://scenes/ui/MainMenu.tscn")
+	SceneManager.transition_scene("res://scenes/MainMenu.tscn")
