@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdm1o3awksih"]
+[gd_scene load_steps=6 format=3 uid="uid://cdm1o3awksih"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_vkwax"]
 [ext_resource type="Texture2D" uid="uid://crpc4m4jv28u4" path="res://assets/backgrounds/ClassSelect.png" id="2_0vphj"]
+[ext_resource type="Texture2D" uid="uid://dijuv761mflgm" path="res://assets/icons/buttons/warrior.png" id="3_25ccy"]
+[ext_resource type="Texture2D" uid="uid://bpnlw5un7yabu" path="res://assets/icons/buttons/mage.png" id="4_wlr8v"]
+[ext_resource type="Texture2D" uid="uid://ci20hlcekgugs" path="res://assets/icons/buttons/rogue_.png" id="5_1i5sh"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -19,31 +22,109 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_0vphj")
 
-[node name="WarriorButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -90.0
-offset_right = 160.0
-offset_bottom = 90.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Warrior"
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -70.5
-offset_top = 400.0
+offset_top = 200.0
 offset_right = 70.5
-offset_bottom = 423.0
+offset_bottom = 223.0
 grow_horizontal = 2
 text = "Choose Your Class"
 
-[connection signal="pressed" from="WarriorButton" to="." method="_on_warrior_button_pressed"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="WarriorButton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 415)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/WarriorButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/WarriorButton/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("3_25ccy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/WarriorButton/VBoxContainer"]
+layout_mode = 2
+text = "Warrior"
+horizontal_alignment = 1
+
+[node name="MageButton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 415)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/MageButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/MageButton/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("4_wlr8v")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/MageButton/VBoxContainer"]
+layout_mode = 2
+text = "Mage"
+horizontal_alignment = 1
+
+[node name="RogueButton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 415)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RogueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/RogueButton/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_1i5sh")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/RogueButton/VBoxContainer"]
+layout_mode = 2
+text = "Rogue"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/WarriorButton" to="." method="_on_warrior_button_pressed"]

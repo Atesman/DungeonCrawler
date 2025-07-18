@@ -2,7 +2,7 @@ extends Node
 
 @onready var black_screen = $ColorRect
 
-const fade_duration := 0.5
+const fade_duration := 0.4
 
 
 func fade_out():

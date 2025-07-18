@@ -92,6 +92,7 @@ func _player_engage(target: Node):
 	target.engage()
 	_set_close_quarters(player_ref, target)
 	_handle_player_engage_move(target)
+	SoundManager.play_sfx("move")
 
 
 func _player_disengage(target: Node):
@@ -99,6 +100,7 @@ func _player_disengage(target: Node):
 	target.disengage()
 	_clear_close_quarters()
 	_handle_player_disengage_move(target)
+	SoundManager.play_sfx("move")
 
 
 func _enemy_engage(enemy: Node):
@@ -106,6 +108,7 @@ func _enemy_engage(enemy: Node):
 	enemy.engage()
 	_set_close_quarters(player_ref, enemy)
 	_handle_enemy_engage_move(enemy)
+	SoundManager.play_sfx("move")
 
 
 func _enemy_disengage(enemy: Node):
@@ -113,6 +116,7 @@ func _enemy_disengage(enemy: Node):
 	enemy.disengage()
 	_clear_close_quarters()
 	_handle_enemy_disengage_move(enemy)
+	SoundManager.play_sfx("move")
 
 
 func _play_melee_animation(attacker: BaseCharacter) -> void:

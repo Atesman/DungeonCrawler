@@ -33,7 +33,7 @@ func _input_event(_viewport, event, _shape_idx):
 
 
 func play_attack_animation():
-	SoundManager.play_attack_sound()
+	SoundManager.play_sfx("attack")
 
 	var bounce_distance := Vector2(40, 0)
 	var direction := 1
@@ -51,8 +51,9 @@ func play_attack_animation():
 
 	await tween.finished
 
+
 func play_defend_animation():
-	#SoundManager.play_defend_sound()
+	SoundManager.play_sfx("defend")
 
 	var bounce_distance := Vector2(30, 0)
 	var direction := -1

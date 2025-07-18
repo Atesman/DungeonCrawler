@@ -27,6 +27,19 @@ offset_right = 1120.0
 offset_bottom = 630.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Map"
+text = "Enter Combat"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 810.0
+offset_top = 367.0
+offset_right = 1110.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "{Text Here}"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

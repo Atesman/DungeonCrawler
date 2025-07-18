@@ -11,11 +11,19 @@ func _ready():
 	sfx_player.bus = "SFX"
 	add_child(music_player)
 	add_child(sfx_player)
+	music_player.volume_db = -6
 
 
 func play_attack_sound():
 	sfx_player.stream = attack_sound
 	sfx_player.play()	
+
+
+func play_sfx(sound_name: String):
+	var sound_path = "res://assets/audio/sfx/%s.mp3" % sound_name
+	var stream = load(sound_path) as AudioStream
+	sfx_player.stream = stream
+	sfx_player.play()
 
 
 func play_music(track_name: String): # AudioStream
