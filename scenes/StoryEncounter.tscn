@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://qiuan3n5csrq"]
+
+[node name="StoryEncounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(1600, 980)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1600, 700)
+layout_mode = 2
+
+[node name="StoryImage" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1200, 700)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Story Text" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 700)
+layout_mode = 2
+
+[node name="Story ChoiceBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1600, 280)
+layout_mode = 2

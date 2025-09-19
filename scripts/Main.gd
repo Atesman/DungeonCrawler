@@ -6,6 +6,7 @@ extends Node
 
 
 func _ready():
+	randomize()
 	SceneManager.set_game_layer(game_layer)
 	SceneManager.set_overlay_layer(overlay_layer)
 	SceneManager.set_ui_layer(ui_layer)
