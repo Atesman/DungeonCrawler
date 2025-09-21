@@ -6,9 +6,11 @@ const EnemyFactory = preload("res://scripts/characters/enemies/EnemyFactory.gd")
 
 var player_node: Player = null
 var player_starting_data: Dictionary = {}
-var current_enemies: Array[Enemy] = [null]
+var current_enemies: Array[Enemy] = []
 
 var current_floor: int = 1
+var map_nodes: Array[Array] = []
+#var map_edges: Array[Edges] = null
 
 
 func create_new_player(data: Dictionary) -> void:
@@ -21,6 +23,10 @@ func get_player() -> Player:
 	return player_node
 
 
+func create_map():
+	map_nodes = MapGeneration.generate_map()
+	
+
 func create_current_enemies():
 	var enemy_list = EnemyFactory.get_random_encounter(current_floor)
 	var enemies = EnemyFactory.create_enemy_group(enemy_list)
@@ -28,7 +34,7 @@ func create_current_enemies():
 
 
 func clear_current_enemies():
-	current_enemies = [null]
+	current_enemies = []
 
 
 func get_current_enemies() -> Array[Enemy]:
