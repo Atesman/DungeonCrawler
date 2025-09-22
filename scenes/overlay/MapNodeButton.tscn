@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b476dueb33cmp"]
+
+[ext_resource type="Script" path="res://scripts/map/MapNodeButton.gd" id="1_ydt48"]
+
+[node name="MapNodeButton" type="Button"]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+script = ExtResource("1_ydt48")
+
+[connection signal="pressed" from="." to="." method="on_pressed"]
