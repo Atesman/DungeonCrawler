@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/map/MapNodeButton.gd" id="1_ydt48"]
 
-[node name="MapNodeButton" type="Button"]
+[node name="MapNodeButton" type="TextureButton"]
 custom_minimum_size = Vector2(80, 80)
 offset_right = 80.0
 offset_bottom = 80.0
