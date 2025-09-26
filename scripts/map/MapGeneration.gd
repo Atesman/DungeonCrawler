@@ -13,7 +13,7 @@ const NODE_BOSS  := "boss"
 const story_chance: float = 0.25
 const elite_chance: float = 0.07
 
-const entrance: int = 280
+const entrance: int = 300
 const boss_location: int = 1700
 const boss_offset: int = 30
 const floor: int = 1050
@@ -27,8 +27,8 @@ static func generate_map() -> Array[Array]:
 	add_elites(map_node_planner)
 	add_boss(map_node_planner)
 	var map_nodes = create_nodes(map_node_planner)
-	# add edges
 	set_locations(map_nodes)
+	# add edges
 	return map_nodes	#return edges as well
 
 

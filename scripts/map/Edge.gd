@@ -1,11 +1,14 @@
 extends Node
 class_name Edge
 
-var id: int
+var from_node: MapNode
+var to_node: MapNode
+var start: Vector2
+var end: Vector2
 
-var incoming_node: MapNode
-var outgoing_node: MapNode
 
-
-func _ready() -> void:
-	pass
+func _init(from: MapNode, to: MapNode) -> void:
+	from_node = from
+	to_node = to
+	start = from.location
+	end = to.location

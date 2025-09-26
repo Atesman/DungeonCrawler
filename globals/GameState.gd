@@ -10,7 +10,7 @@ var current_enemies: Array[Enemy] = []
 
 var current_floor: int = 1
 var map_nodes: Array[Array] = []
-#var map_edges: Array[Edges] = null
+var map_edges: Array[Array] = []
 
 
 func create_new_player(data: Dictionary) -> void:
@@ -25,6 +25,7 @@ func get_player() -> Player:
 
 func create_map():
 	map_nodes = MapGeneration.generate_map()
+	map_edges = EdgeGeneration.generate_edges()
 	
 
 func create_current_enemies():

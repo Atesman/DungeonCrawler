@@ -3,11 +3,14 @@ extends Node
 @onready var MapNodeButtonScene = preload("res://scenes/overlay/MapNodeButton.tscn")
 
 var map_nodes: Array[Array]
+var map_edges: Array[Array]
 
 
 func _ready() -> void:
 	map_nodes = RunManager.current_game_state.map_nodes
 	create_node_buttons()
+	map_edges = RunManager.current_game_state.map_edges
+	draw_edges()
 
 
 func create_node_buttons():
@@ -23,3 +26,4 @@ func create_node_buttons():
 			button.position = screen_position - half_size
 
 			add_child(button)
+

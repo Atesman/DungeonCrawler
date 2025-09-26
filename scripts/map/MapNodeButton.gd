@@ -2,6 +2,7 @@ extends TextureButton
 class_name MapNodeButton
 
 var type: String
+# var for toggling clickability
 
 
 func setup(node_type: String):
