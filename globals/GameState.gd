@@ -25,7 +25,7 @@ func get_player() -> Player:
 
 func create_map():
 	map_nodes = MapGeneration.generate_map()
-	map_edges = EdgeGeneration.generate_edges()
+	map_edges = EdgeGeneration.generate_edges(map_nodes)
 	
 
 func create_current_enemies():

@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 @onready var MapNodeButtonScene = preload("res://scenes/overlay/MapNodeButton.tscn")
 
@@ -8,9 +8,9 @@ var map_edges: Array[Array]
 
 func _ready() -> void:
 	map_nodes = RunManager.current_game_state.map_nodes
-	create_node_buttons()
 	map_edges = RunManager.current_game_state.map_edges
 	draw_edges()
+	create_node_buttons()
 
 
 func create_node_buttons():
@@ -27,3 +27,12 @@ func create_node_buttons():
 
 			add_child(button)
 
+
+func draw_edges():	#Line2D nodes are also an option
+	for floor in map_edges:
+		for edge in floor:
+			var line = Line2D.new()
+			line.points = [edge.start, edge.end]
+			line.width = 8.0
+			line.default_color = Color.html("#383838")
+			add_child(line)
