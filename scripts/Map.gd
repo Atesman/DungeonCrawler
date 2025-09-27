@@ -6,7 +6,7 @@ class_name Map
 
 func _ready():
 	SceneManager.add_overlay("res://scenes/overlay/MapNodeOverlayLayer.tscn")
-	label.text = "Current Dungeon Floor - %d" % RunManager.current_game_state.current_floor
+	label.text = "Floor - %d" % RunManager.current_game_state.current_floor
 	SoundManager.stop_music()
 	SoundManager.play_music("map")
 
