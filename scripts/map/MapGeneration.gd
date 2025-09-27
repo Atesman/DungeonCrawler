@@ -19,6 +19,9 @@ const boss_offset: int = 30
 const floor: int = 1050
 const ceiling: int = 30
 
+const x_offset: int = 25
+const y_offset: int = 80
+
 
 static func generate_map() -> Array[Array]:
 	var encounter_amounts = generate_number_of_encounters()
@@ -105,7 +108,7 @@ static func set_locations(map_nodes: Array[Array]):
 	for i in range(map_nodes.size()):
 		var row_locations = set_rows(map_nodes[i].size())
 		for j in range(map_nodes[i].size()):
-			var location_vector = Vector2(column_locations[i], row_locations[j])
+			var location_vector = apply_offsets(column_locations[i], row_locations[j])
 			map_nodes[i][j].location = location_vector
 
 
@@ -131,3 +134,9 @@ static func set_rows(room_amount: int) -> Array[int]:
 		current_row += height_segment
 		rows.append(current_row)
 	return rows
+
+
+static func apply_offsets(original_x: int, original_y: int) -> Vector2:
+	var x = original_x + randi_range(-x_offset, x_offset)
+	var y = original_y + randi_range(-y_offset, y_offset)
+	return Vector2(x,y)
