@@ -7,4 +7,4 @@ func _ready():
 
 
 func _on_start_button_pressed():
-	SceneManager.transition_scene("res://scenes/MainMenu.tscn")
+	SceneManager.transition_scene("res://scenes/main/MainMenu.tscn")

@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://crhuf0m04gjge"]
 
-[ext_resource type="Script" path="res://scripts/Map.gd" id="1_yf4xc"]
+[ext_resource type="Script" path="res://scripts/map/Map.gd" id="1_m3ti5"]
 [ext_resource type="Texture2D" uid="uid://0ri0acwwt601" path="res://assets/backgrounds/map.png" id="2_ly2j1"]
 
 [node name="Map" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_yf4xc")
+script = ExtResource("1_m3ti5")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0

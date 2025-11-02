@@ -18,7 +18,7 @@ func start_run(player_class: String):
 	current_game_state.create_map()
 	SceneManager.clear_ui()
 	#SoundManager.fade_out(0.5)
-	await SceneManager.transition_scene("res://scenes/Map.tscn")
+	await SceneManager.transition_scene("res://scenes//map/Map.tscn")
 
 
 func end_run():

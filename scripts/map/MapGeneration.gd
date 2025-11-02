@@ -10,8 +10,8 @@ const NODE_STORY  := "story"
 const NODE_ELITE  := "elite"
 const NODE_BOSS  := "boss"
 
-const story_chance: float = 0.25
-const elite_chance: float = 0.07
+const story_chance: float = 0.33
+const elite_chance: float = 0.10
 
 const entrance: int = 300
 const boss_location: int = 1700
@@ -140,3 +140,4 @@ static func apply_offsets(original_x: int, original_y: int) -> Vector2:
 	var x = original_x + randi_range(-x_offset, x_offset)
 	var y = original_y + randi_range(-y_offset, y_offset)
 	return Vector2(x,y)
+	
