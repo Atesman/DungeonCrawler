@@ -36,5 +36,5 @@
 		{ "enemies": ["skeever", "skeever", "skeever"], "weight":  0.25 },
 
 		{ "enemies": ["orc"], "weight": 0.0 }
-	],
+	]
 }

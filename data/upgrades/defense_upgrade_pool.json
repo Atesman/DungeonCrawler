@@ -1,0 +1,6 @@
+{
+	"1": [
+		{ "HealthUp": 5, "weight": 0.25 },
+		{ "enemies": ["imp", "imp"], "weight":  0.25 }
+	]
+}

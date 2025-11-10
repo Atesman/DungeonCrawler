@@ -156,5 +156,15 @@ func reset_def() -> void:
 	emit_signal("def_changed", current_def)
 
 
+func change_max_hp(amount: int) -> void:
+	max_hp = (max_hp + amount)
+	#emit_signal("hp_changed", current_hp) MAX HP?
+
+
+func heal(amount: int) -> void:
+	current_hp = min(max_hp, (current_hp + amount))
+	emit_signal("hp_changed", current_hp)
+
+
 func use_item() -> void:
 	pass
