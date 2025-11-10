@@ -70,7 +70,10 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+[node name="Bucket1" type="VBoxContainer" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/HBoxContainer/Bucket1"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -78,7 +81,10 @@ size_flags_vertical = 0
 text = "Attack
 "
 
-[node name="Button2" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+[node name="Bucket2" type="VBoxContainer" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/Panel/HBoxContainer/Bucket2"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -86,7 +92,10 @@ size_flags_vertical = 0
 text = "Defense
 "
 
-[node name="Button3" type="Button" parent="CanvasLayer/Panel/HBoxContainer"]
+[node name="Bucket3" type="VBoxContainer" parent="CanvasLayer/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="CanvasLayer/Panel/HBoxContainer/Bucket3"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -94,6 +103,6 @@ size_flags_vertical = 0
 text = "Misc
 "
 
-[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Button" to="." method="_on_map_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Button2" to="." method="_on_map_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Button3" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Bucket1/Button" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Bucket2/Button2" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/HBoxContainer/Bucket3/Button3" to="." method="_on_map_button_pressed"]
